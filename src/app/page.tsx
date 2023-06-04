@@ -1,14 +1,11 @@
 
 // @use-client
-import { createContext } from 'react';
-
-import ResponsiveAppBar from './components/AppBar'
+import React from 'react'
+import AppBar from './components/AppBar/AppBar'
 export default function Home() {
-  return(
+  return (
     <>
-    <ResponsiveAppBar />
-
-    
+      <AppBar />
     </>
 
   )
