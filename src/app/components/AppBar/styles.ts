@@ -7,11 +7,10 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   padding: 0 1rem;
-
-
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
+    height: 3.5rem;
     gap: 0.8rem;
   }
 
