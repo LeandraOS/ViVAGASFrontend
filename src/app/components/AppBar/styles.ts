@@ -6,6 +6,8 @@ export const Container = styled.div`
   color: #fff;
   display: flex;
   align-items: center;
+  padding: 0 1rem;
+
 
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
 
@@ -25,12 +27,12 @@ export const LinksContainer = styled.div`
 
 export const Links = styled.a`
   position: relative;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: transparent;
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
   cursor: pointer;
-  margin-left: 3px;
+  margin-left: 0.3rem;
 
 
   background: linear-gradient(45deg, #2878BE, #2878BE);
@@ -43,7 +45,7 @@ export const Links = styled.a`
     position: absolute;
     display: block;
     width: 100%;
-    height: 3px;
+    height: 0.2rem;
     top: 2rem;
     left: 0;
     background-color: #2878BE;
@@ -53,7 +55,7 @@ export const Links = styled.a`
 
     @media screen and (min-width: 300px) and (max-width: 640px) {
       top: 1.2rem;
-      height: 2px;
+      height: 0.125rem;
 
     }
   }
@@ -63,6 +65,6 @@ export const Links = styled.a`
   }
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
-    font-size: 11px;
+    font-size: 0.7rem;
   }
 `
