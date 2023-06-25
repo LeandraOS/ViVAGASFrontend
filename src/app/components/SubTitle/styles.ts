@@ -5,6 +5,10 @@ export const Container = styled.div`
     width: 350px;
     flex-direction: column;
     flex-shrink: 0;
+
+    @media screen and (min-width: 300px) and (max-width: 640px) {
+    width: 250px;
+  }
 `
 
 export const Text = styled.p`
@@ -16,4 +20,7 @@ export const Text = styled.p`
     letter-spacing: 0.56px;
     margin: 0px;
 
+  @media screen and (min-width: 300px) and (max-width: 640px) {
+    font-size: 14px;
+  }
 `
