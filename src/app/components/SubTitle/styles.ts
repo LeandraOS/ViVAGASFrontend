@@ -5,7 +5,6 @@ export const Container = styled.div`
     width: 350px;
     flex-direction: column;
     flex-shrink: 0;
-
 `
 
 export const Text = styled.p`

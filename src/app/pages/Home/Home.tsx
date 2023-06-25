@@ -4,7 +4,6 @@ import { Wrapper } from './styles'
 import { TitleWelcome } from '@/app/components/TitleWelcome/TitleWelcome'
 import { SubTitle } from '@/app/components/SubTitle/SubTitle'
 
-
 export const Home = () => {
   return (
     <Wrapper>
