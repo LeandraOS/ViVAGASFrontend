@@ -2,10 +2,12 @@ import { Button } from './styles'
 import React from 'react'
 
 interface ButtonProps {
-    text: string;
+  text: string;
 }
 
 export const ButtonCustom = ({ text }: ButtonProps) => {
-  return <Button>{text}</Button>
+  return (
+    <Button>{text}</Button>
+  )
 }
 

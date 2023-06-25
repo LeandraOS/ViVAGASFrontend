@@ -1,7 +1,15 @@
 import styled from '@emotion/styled'
 
 export const Logo = styled.svg`
-  width: 330px ;
-  height: 75px;
+  height: 4rem;
+
+  @media screen and (min-width: 300px) and (max-width: 640px) {
+    height: 2rem;
+  }
+
+  @media screen and (max-width: 550px) {
+    height: 2rem;
+  }
     
 `
+

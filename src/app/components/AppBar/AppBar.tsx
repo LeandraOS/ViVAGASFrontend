@@ -12,15 +12,15 @@ const AppBar = () => {
 
   return (
     <Container>
-      <LogoViVagas></LogoViVagas>
       <LinksContainer>
+        <LogoViVagas />
         {pages.map((page) => (
           <Links key={page.title}>
             {page.title}
           </Links>
         ))}
+        <ButtonCustom text='Login' />
       </LinksContainer>
-      <ButtonCustom text='Login' />
     </Container>
   )
 }

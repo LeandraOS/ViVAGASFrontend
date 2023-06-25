@@ -5,23 +5,22 @@ export const Container = styled.div`
   background: #fff;
   color: #fff;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
 
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
     gap: 0.8rem;
-    padding: 0 10px;
   }
 
 `
 
 export const LinksContainer = styled.div`
   display: flex;
-  justify-content: center;
   flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+
 `
 
 export const Links = styled.a`
@@ -31,6 +30,8 @@ export const Links = styled.a`
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
   cursor: pointer;
+  margin-left: 3px;
+
 
   background: linear-gradient(45deg, #2878BE, #2878BE);
   -webkit-background-clip: text;
