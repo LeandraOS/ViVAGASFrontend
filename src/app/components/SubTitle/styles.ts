@@ -7,7 +7,7 @@ export const Container = styled.div`
     flex-shrink: 0;
 
     @media screen and (min-width: 300px) and (max-width: 640px) {
-    width: 250px;
+    width: 260px;
   }
 `
 
@@ -21,6 +21,6 @@ export const Text = styled.p`
     margin: 0px;
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 `

@@ -64,6 +64,6 @@ export const Links = styled.a`
   }
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
-    font-size: 0.7rem;
+    font-size: 14px;
   }
 `
