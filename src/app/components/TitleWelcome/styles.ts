@@ -8,9 +8,18 @@ export const Title= styled.h1`
     letter-spacing: 1.28px;
     margin-top: 4.5rem;
     margin-bottom: 0px;
+    &:hover {
+    transition: transform 0.15s ease;
+    transform: scale(1.02);
+  }
 
     @media screen and (min-width: 300px) and (max-width: 640px) {
-    font-size: 1.2rem;
+      margin-top: 7rem;
+      font-size: 1.5rem;
+  }
+
+  @media screen and (max-width: 820px) {
+    margin-top: 7rem;
   }
 `
 

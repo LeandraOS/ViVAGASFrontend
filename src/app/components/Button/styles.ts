@@ -12,9 +12,13 @@ export const Button = styled.button`
   right: 0;
   border-radius: 1.25rem;
   margin-left: 11.5rem;
+  &:hover {
+    transition: transform 0.2s ease;
+    transform: scale(1.02);
+  }
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
-    font-size: 10px;
+    font-size: 12px;
     padding: 0.25rem 0.5rem;
     margin-left: 3.5rem;
 
