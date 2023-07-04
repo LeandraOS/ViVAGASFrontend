@@ -19,7 +19,7 @@ const AppBar = () => {
             {page.title}
           </Links>
         ))}
-        <ButtonCustom text='Login' />
+        <ButtonCustom text='Login' marginLeft='11.5rem'/>
       </LinksContainer>
     </Container>
   )

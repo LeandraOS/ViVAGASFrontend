@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Button, Text } from './styles'
 import { Google } from '@/app/assets/Google/Google'

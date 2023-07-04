@@ -1,13 +1,14 @@
-import { Button } from './styles'
+'use client'
+import { StyledButton } from './styles'
 import React from 'react'
 
 interface ButtonProps {
   text: string;
+  marginLeft?: string;
 }
 
-export const ButtonCustom = ({ text }: ButtonProps) => {
+export const ButtonCustom = ({ text, marginLeft }: ButtonProps) => {
   return (
-    <Button>{text}</Button>
+    <StyledButton marginLeft={marginLeft}>{text}</StyledButton>
   )
 }
-
