@@ -14,6 +14,12 @@ export const OutContainer = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.40);
 
+  @media screen and (min-width: 300px) and (max-width: 640px) {
+    width: 104vw;
+    height: 104vh;
+  }
+
+
 `
 
 export const Container = styled.div`
@@ -45,9 +51,9 @@ export const IconX = styled(IoCloseOutline)`
 
 `
 
-export const TextContainer = styled.div<{ widthText: string }>`
+export const TextContainer = styled.div<{ widthText: string; padding: string }>`
   display: flex;
-  padding: 2.5rem 0 2.5rem 0;
+  padding: ${({ padding }) => padding} 0 ${({ padding }) => padding} 0;
   width: ${({ widthText }) => widthText};
   flex-direction: column;
   align-items: center;
@@ -59,7 +65,7 @@ export const TextContainer = styled.div<{ widthText: string }>`
   }
 `
 
-export const Text = styled.p<{ textSize?: string; justify?: boolean }>`
+export const Text = styled.p<{ textSize?: string; justify?: boolean; margin:string; }>`
 
   color: #2878BE;
   text-align: ${({ justify }) => (justify ? 'justify' : 'center')};
@@ -74,6 +80,7 @@ export const Text = styled.p<{ textSize?: string; justify?: boolean }>`
     font-weight: 600;
     line-height: normal;
     letter-spacing: 0.36px;
+    margin: ${({ margin }) => margin} 0 0;
 
     @media screen and (min-width: 300px) and (max-width: 640px) {
     font-size: 11px;
