@@ -3,6 +3,7 @@ import React from 'react'
 import { Container, LinksContainer, Links } from './styles'
 import { LogoViVagas } from '@/app/assets/Logo/Logo'
 import { ButtonCustom } from '../Button/Button'
+import { ProfileMenu } from '../ProfileMenu/ProfileMenu'
 
 const AppBar = () => {
   const pages = [
@@ -19,7 +20,9 @@ const AppBar = () => {
             {page.title}
           </Links>
         ))}
-        <ButtonCustom text='Login' marginLeft='11.5rem'/>
+        <ButtonCustom text='Login' marginLeft='11.5rem' />
+        <ProfileMenu name='Leandra Silva' registros='Candidaturas'></ProfileMenu>
+
       </LinksContainer>
     </Container>
   )
