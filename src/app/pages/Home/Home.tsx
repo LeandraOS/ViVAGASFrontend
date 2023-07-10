@@ -5,6 +5,7 @@ import { TitleWelcome } from '@/app/components/TitleWelcome/TitleWelcome'
 import { SubTitle } from '@/app/components/SubTitle/SubTitle'
 import { ButtonGoogle } from '@/app/components/ButtonGoogle/ButtonGoogle'
 import { Help } from '@/app/assets/Help/Help'
+import { InputSearch } from '@/app/components/Input/InputSearch'
 
 export const Home = () => {
   return (
@@ -15,6 +16,7 @@ export const Home = () => {
        acessar nossa plataforma.'/>
       <ButtonGoogle></ButtonGoogle>
       <Help></Help>
+      <InputSearch />
     </Wrapper>
   )
 }
