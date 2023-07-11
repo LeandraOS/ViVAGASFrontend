@@ -6,6 +6,7 @@ import { SubTitle } from '@/app/components/SubTitle/SubTitle'
 import { ButtonGoogle } from '@/app/components/ButtonGoogle/ButtonGoogle'
 import { Help } from '@/app/assets/Help/Help'
 import { InputSearch } from '@/app/components/Input/InputSearch'
+import { Tag } from '@/app/components/Tag/Tag'
 
 export const Home = () => {
   return (
@@ -17,6 +18,7 @@ export const Home = () => {
       <ButtonGoogle></ButtonGoogle>
       <Help></Help>
       <InputSearch />
+      <Tag text='Frontend'/>
     </Wrapper>
   )
 }
