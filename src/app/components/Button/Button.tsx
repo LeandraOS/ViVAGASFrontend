@@ -5,10 +5,11 @@ import React from 'react'
 interface ButtonProps {
   text: string;
   marginLeft?: string;
+  actived: boolean
 }
 
-export const ButtonCustom = ({ text, marginLeft }: ButtonProps) => {
+export const ButtonCustom = ({ text, marginLeft, actived }: ButtonProps) => {
   return (
-    <StyledButton marginLeft={marginLeft}>{text}</StyledButton>
+    <StyledButton marginLeft={marginLeft} active={actived}>{text}</StyledButton>
   )
 }

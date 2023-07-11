@@ -3,17 +3,21 @@ import styled, { css } from 'styled-components'
 
 interface StyledButtonProps {
   marginLeft?: string;
+  active: boolean;
 }
 
 export const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
-  background: linear-gradient(119deg, #119DB6 0%, #2878BE 100%);
+  background: ${({ active }) =>
+    active
+      ? 'linear-gradient(119deg, #119DB6 0%, #2878BE 100%)'
+      : 'linear-gradient(90deg, #C0C0C0 0%, #A6A6A6 47.74%, #9F9F9F 100%)'};
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: bold;
-  cursor: pointer;
+  cursor: ${({ active }) => (active ? 'pointer' : 'not-allowed')};
   right: 0;
   border-radius: 1.25rem;
   ${props =>
@@ -21,7 +25,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
     css`
       margin-left: ${props.marginLeft};
     `}
-  
+
   &:hover {
     transition: transform 0.2s ease;
     transform: scale(1.02);

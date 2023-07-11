@@ -7,6 +7,7 @@ import { ButtonGoogle } from '@/app/components/ButtonGoogle/ButtonGoogle'
 import { Help } from '@/app/assets/Help/Help'
 import { InputSearch } from '@/app/components/Input/InputSearch'
 import { Tag } from '@/app/components/Tag/Tag'
+import { CardProject } from '@/app/components/CardProject/CardProject'
 
 export const Home = () => {
   return (
@@ -19,6 +20,7 @@ export const Home = () => {
       <Help></Help>
       <InputSearch />
       <Tag text='Frontend'/>
+      <CardProject></CardProject>
     </Wrapper>
   )
 }

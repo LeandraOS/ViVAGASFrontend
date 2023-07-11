@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: inline-flex;
     padding: 0 8px;
+    width: fit-content;
+    height: 20px;
     align-items: center;
     border-radius: 2px;
     border: 1px solid #2878BE;
