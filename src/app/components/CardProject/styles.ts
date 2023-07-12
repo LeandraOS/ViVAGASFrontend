@@ -29,6 +29,10 @@ export const Title = styled.h1`
     font-weight: 600;
     text-align: center;
     margin-bottom: 0;
+
+    @media screen and (min-width: 300px) and (max-width: 640px) {
+      font-size: 14px;
+    }
 `
 
 export const ContainerDescription = styled.div`
@@ -36,6 +40,11 @@ export const ContainerDescription = styled.div`
     max-width: 300px;
     flex-direction: column;
     align-self: center;
+
+  @media screen and (min-width: 300px) and (max-width: 640px) {
+    max-width: 200px;
+
+  }
 
 `
 
@@ -57,6 +66,10 @@ export const TitlePoint = styled.p`
     font-weight: 600;
     line-height: 22px;
     white-space: nowrap;
+
+    @media screen and (min-width: 300px) and (max-width: 640px) {
+      font-size: 11px;
+    }
 
     ::after {
   content: ":";
@@ -92,6 +105,10 @@ export const LinkDetails = styled.a<LinkDetailsProps>`
   text-decoration-line: underline;
   color: ${({ active }) => (active ? '#2086B6' : 'gray')};
   cursor: ${({ active }) => (active ? 'pointer' : 'not-allowed')};
+
+  @media screen and (min-width: 300px) and (max-width: 640px) {
+    font-size: 12px;
+    }
 
   &:hover {
     transition: transform 0.2s ease;

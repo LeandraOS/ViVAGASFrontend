@@ -20,7 +20,7 @@ const AppBar = () => {
             {page.title}
           </Links>
         ))}
-        <ButtonCustom text='Login' marginLeft='11.5rem' />
+        <ButtonCustom actived={true} text='Login' marginLeft='11.5rem' />
         <ProfileMenu name='Leandra Silva' registros='Candidaturas'></ProfileMenu>
 
       </LinksContainer>
