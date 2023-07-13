@@ -8,6 +8,7 @@ import { Help } from '@/app/assets/Help/Help'
 import { InputSearch } from '@/app/components/Input/InputSearch'
 import { Tag } from '@/app/components/Tag/Tag'
 import { CardProject } from '@/app/components/CardProject/CardProject'
+import CardDetails from '@/app/components/CardDetails/CardDetails'
 
 export const Home = () => {
   return (
@@ -21,6 +22,7 @@ export const Home = () => {
       <InputSearch />
       <Tag text='Frontend'/>
       <CardProject></CardProject>
+      <CardDetails></CardDetails>
     </Wrapper>
   )
 }
