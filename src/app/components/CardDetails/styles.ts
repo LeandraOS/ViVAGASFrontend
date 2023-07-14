@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { AppRegistrationOutlined, BookmarksOutlined, CalendarMonthOutlined, ContactMailOutlined, DesignServicesOutlined, PermContactCalendarOutlined, Psychology } from '@mui/icons-material'
 
 export const Card = styled.div`
   display: flex;
@@ -35,5 +36,53 @@ export const Card = styled.div`
 
 export const WrapperTitle = styled.div`
     display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    width: fit-content;
+    align-self: center;
     
+`
+export const Title = styled.h2`
+  color: #2086B6;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; 
+  text-align: end;
+  margin: 0;
+`
+
+export const IconPsy = styled(PermContactCalendarOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
+
+
+`
+
+export const IconRequisitos = styled(DesignServicesOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
+
+`
+
+
+export const IconInfos = styled(AppRegistrationOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
+`
+
+export const IconCalendar = styled(CalendarMonthOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
+`
+
+export const IconTeacher = styled(ContactMailOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
+`
+
+export const IconObs = styled(BookmarksOutlined)`
+  color: #2086B6;
+  font-size: 2rem;
 `

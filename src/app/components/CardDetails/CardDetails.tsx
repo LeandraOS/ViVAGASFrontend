@@ -1,10 +1,18 @@
-import React from 'react'
-import { Card } from './styles'
+import React, { ReactElement, ComponentType } from 'react'
+import { Card, Title, WrapperTitle } from './styles'
 
-const CardDetails = () => {
+interface CardDetailsProps {
+  icon: ComponentType
+  title: string
+}
+
+const CardDetails: React.FC<CardDetailsProps> = ({ icon: Icon, title }: CardDetailsProps): ReactElement => {
   return (
     <Card>
-      
+      <WrapperTitle>
+        <Icon />
+        <Title>{title}</Title>
+      </WrapperTitle>
     </Card>
   )
 }
