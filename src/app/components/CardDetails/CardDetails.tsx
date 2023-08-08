@@ -14,7 +14,7 @@ export const CardDetails: React.FC<CardDetailsProps> = ({ icon: Icon, title, chi
         <Icon />
         <Title>{title}</Title>
       </WrapperTitle>
-      {children} {/* Render the children prop here */}
+      {children}
     </Card>
   )
 }

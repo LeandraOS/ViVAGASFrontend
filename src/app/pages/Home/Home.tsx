@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 import { Wrapper } from './styles'
-import { CardInfosAdm } from '@/app/components/CardDetails/CardInfosAdm'
+import { CardSelect } from '@/app/components/CardDetails/CardSelect'
 
 export const Home = () => {
   return (
     <Wrapper>
-      <CardInfosAdm ></CardInfosAdm>
+      <CardSelect title='Inscrições'></CardSelect>
     </Wrapper>
   )
 }
