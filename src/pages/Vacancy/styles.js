@@ -6,5 +6,6 @@ export const Wrapper = styled.section`
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 4rem;
+    margin: 2rem 4rem;
+    
 `

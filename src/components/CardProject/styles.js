@@ -64,12 +64,13 @@ export const TitlePoint = styled.p`
     line-height: 22px;
     white-space: nowrap;
 
-    @media screen and (min-width: 300px) and (max-width: 640px) {
-      font-size: 11px;
+    ::after{
+      content: ":" !important;
+      color : red;
     }
 
-    ::after {
-  content: ":";
+    @media screen and (min-width: 300px) and (max-width: 640px) {
+      font-size: 11px;
     }
 
 `
@@ -80,6 +81,11 @@ export const Wrapper = styled.div`
     height: 24px;
     gap: 0.75rem;
     align-items: center;
+
+    & > :first-child::after {
+        content: ":";
+    }
+
 `
 
 export const WrapperButtons = styled.div`

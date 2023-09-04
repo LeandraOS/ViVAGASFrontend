@@ -5,12 +5,14 @@ export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: white;
-  border: 1px solid #2878BE;
+  border: 1px solid #d9d9d9;
   border-radius: 8px;
   padding-left: 14px;
-  margin: 64px 64px;
   margin-left: auto;
+  margin-top: 2rem;
+  margin-right: 2rem;
   width: 280px; 
+  height: 2rem;
 
 `;
 
@@ -18,13 +20,14 @@ export const SearchInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
+  color: #2878BE;
 `;
 
 export const SearchButton = styled.button`
   background-color: transparent;
   border: none;
-  border-left: 1px solid #2878BE;
-  height: 42px;
+  border-left: 1px solid #d9d9d9;
+  height: 32px;
   width: 42px;
   cursor: pointer;
   
