@@ -6,8 +6,9 @@ import { ButtonCustom } from '../Button/Button'
 
 export const AppBar = () => {
   const pages = [
+    { title: 'Inscrições', url: '/' },
     { title: 'Vagas', url: '/' },
-
+    { title: 'Detalhes', url: '/' },
   ]
 
   return (

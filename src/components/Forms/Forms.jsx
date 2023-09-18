@@ -1,16 +1,17 @@
-import React, { useState, useRef } from 'react';
-import { Input, Button, Select } from 'antd';
-import { StyledForm, StyledFormItem } from './styles';
-import TextLabel from './TextLabel';
-import { EyeOutlined, CloseOutlined } from '@ant-design/icons';
+import React, { useState, useRef, useEffect } from 'react';
+import { Input, Button, Select, Form } from 'antd';
 import styled from 'styled-components';
+import { StyledForm, StyledFormItem, ContainerButton } from './styles';
 import { useDropzone } from 'react-dropzone';
+import TextLabel from './TextLabel';
 import { CheckForms } from '../../assets/CheckForms/CheckForms';
+
+import { EyeOutlined, CloseOutlined } from '@ant-design/icons';
+import { ButtonCustom } from '../Button/Button';
 
 const { Option } = Select;
 
 const isLinkValid = (rule, value) => {
-  // Expressão regular para validar URLs simples (http:// ou https://)
   const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
 
   if (!value || urlPattern.test(value)) {
@@ -21,15 +22,15 @@ const isLinkValid = (rule, value) => {
 };
 
 const StyledUploadContainer = styled.div`
-  border: 1px dashed #8FC9FC;
+  border: 2px dashed #8FC9FC;
   flex-shrink: 0;
   border-radius: 6px;
   padding: 20px;
   text-align: center;
   cursor: pointer;
-  width: 520px;
-  transition: border 0.3s; // Adicione uma transição para suavizar a mudança de cor da borda
-  border-color: ${(props) => (props.isDragActive ? 'green' : '#8FC9FC')}; // Altere a cor da borda quando um arquivo for arrastado
+  width: 560px;
+  transition: border 0.3s;
+  border-color: ${(props) => (props.isDragActive ? 'green' : '#8FC9FC')};
 `;
 
 const UploadText = styled.p`
@@ -40,7 +41,6 @@ const UploadText = styled.p`
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-style: normal;
-  font-weight: 600;
   line-height: normal;
 `;
 
@@ -60,23 +60,23 @@ const StyledInput = styled.input`
 
 const StyledViewButton = styled(Button)`
   align-self: center;
-  background: linear-gradient(270deg, #119DB6 3.45%, #1B8DBA 50.79%, #2878BE 93.97%);
+  background: linear-gradient(270deg, #119db6 3.45%, #1b8dba 50.79%, #2878be 93.97%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'Inter', sans-serif;
-
-  path {
-    background: linear-gradient(270deg, #119DB6 3.45%, #1B8DBA 50.79%, #2878BE 93.97%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
 `;
 
 const StyledRemoveButton = styled(Button)`
-  margin-left: 10px;
-  color: red;
+  color: #2878be;
+
+  svg {
+    height: 12px;
+
+    &:hover {
+      color: red;
+    }
+  }
 `;
 
 const FormComponent = ({ onFinish }) => {
@@ -89,19 +89,34 @@ const FormComponent = ({ onFinish }) => {
     'Machine Learning',
   ];
 
-  const [uploadedCertificado, setUploadedCertificado] = useState(null);
-  const [uploadedHistorico, setUploadedHistorico] = useState(null);
+  const [form] = Form.useForm();
 
-  // Defina a ref para o input de arquivo
+  const [formData, setFormData] = useState(() => {
+    const storedData = localStorage.getItem('formData');
+    return storedData
+      ? JSON.parse(storedData)
+      : {
+          name: '',
+          email: '',
+          phone: '',
+          linkedin: '',
+          github: '',
+          cra: '',
+          periodo: '',
+          areasInteresse: [],
+          uploadedCertificado: null,
+          uploadedHistorico: null,
+        };
+  });
+
   const certificadoInputRef = useRef(null);
   const historicoInputRef = useRef(null);
 
-  // UseDropzone para habilitar o carregamento de arquivos por arrastar e soltar
   const { getRootProps: getCertificadoRootProps, getInputProps: getCertificadoInputProps, isDragActive: isCertificadoDragActive } = useDropzone({
     accept: '.pdf,.doc,.docx,image/*',
     onDrop: (acceptedFiles) => {
       const file = acceptedFiles[0];
-      setUploadedCertificado(file);
+      setFormData((prevData) => ({ ...prevData, uploadedCertificado: file }));
     },
   });
 
@@ -109,7 +124,7 @@ const FormComponent = ({ onFinish }) => {
     accept: '.pdf,.doc,.docx,image/*',
     onDrop: (acceptedFiles) => {
       const file = acceptedFiles[0];
-      setUploadedHistorico(file);
+      setFormData((prevData) => ({ ...prevData, uploadedHistorico: file }));
     },
   });
 
@@ -125,104 +140,168 @@ const FormComponent = ({ onFinish }) => {
     }
   };
 
-  const handleCertificadoChange = (e) => {
-    const file = e.target.files[0];
-    setUploadedCertificado(file);
-  };
-
-  const handleHistoricoChange = (e) => {
-    const file = e.target.files[0];
-    setUploadedHistorico(file);
-  };
-
   const handleViewButtonClick = (file) => {
-    if (file) {
+    if (file instanceof Blob) {
       window.open(URL.createObjectURL(file), '_blank');
     }
   };
 
-  const handleRemoveButtonClick = (file, setFile) => {
-    if (file) {
-      // Remove o arquivo
-      setFile(null);
+  const handleRemoveButtonClick = () => {
+    setFormData((prevData) => ({ ...prevData, uploadedCertificado: null }));
+  };
+
+  const handleHistoricoRemoveButtonClick = () => {
+    setFormData((prevData) => ({ ...prevData, uploadedHistorico: null }));
+  };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('formData');
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setFormData((prevData) => ({
+        ...prevData,
+        name: parsedData.name || '',
+        email: parsedData.email || '',
+        phone: parsedData.phone || '',
+        linkedin: parsedData.linkedin || '',
+        github: parsedData.github || '',
+        uploadedCertificado: parsedData.uploadedCertificado || null,
+        uploadedHistorico: parsedData.uploadedHistorico || null,
+      }));
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(formData));
+  }, [formData]);
+
+  const handleSubmit = () => {
+    console.log('Dados do formulário enviados:', formData);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
   };
 
   return (
-    <StyledForm name="basic" onFinish={onFinish}>
-      <StyledFormItem
-        name="name"
-        rules={[{ required: true, message: 'Por favor, insira o nome!' }]}
-      >
-        <TextLabel>Nome:</TextLabel>
-        <Input />
-      </StyledFormItem>
+    <Form
+      style={{
+        width: '600px',
+        margin: '0 auto',
+      }}
+      name="basic"
+      onFinish={handleSubmit}
+      onFinishFailed={onFinishFailed}
+      initialValues={formData}
+    >
+      <TextLabel>Nome:</TextLabel>
+<Form.Item
 
-      <StyledFormItem
+  name="name"
+  rules={[
+    {
+      required: true,
+      message: 'Por favor, insira o nome.',
+    },
+  ]}
+>
+  <Input onChange={(e) => handleInputChange('name', e.target.value)} />
+</Form.Item>
+
+      <TextLabel>Email:</TextLabel>
+      <Form.Item
         name="email"
         rules={[
-          { required: true, message: 'Por favor, insira o email!' },
-          { type: 'email', message: 'Por favor, insira um email válido!' },
-        ]}
-      >
-        <TextLabel>Email:</TextLabel>
-        <Input />
-      </StyledFormItem>
-
-      <StyledFormItem
-        name="phone"
-        rules={[
-          { required: true, message: 'Por favor, insira o telefone!' },
           {
-            pattern: /^\d{10}$/,
-            message: 'Por favor, insira um telefone válido!',
+            required: true,
+            message: 'Por favor, insira o email.',
+            type: 'email',
           },
         ]}
       >
-        <TextLabel>Telefone:</TextLabel>
         <Input />
-      </StyledFormItem>
+      </Form.Item>
 
-      <StyledFormItem
-        name="linkedin"
+      <TextLabel>Telefone:</TextLabel>
+      <Form.Item
+        name="phone"
         rules={[
-          { required: true, message: 'Por favor, insira o LinkedIn!' },
-          { validator: isLinkValid },
+          {
+            required: true,
+            message: 'Por favor, insira o telefone.',
+            type: 'string', // Alterado de 'phone' para 'string'
+          },
         ]}
       >
-        <TextLabel>LinkedIn:</TextLabel>
         <Input />
-      </StyledFormItem>
+      </Form.Item>
 
-      <StyledFormItem
-        name="github"
-        rules={[
-          { required: true, message: 'Por favor, insira o GitHub!' },
-          { validator: isLinkValid },
-        ]}
-      >
-        <TextLabel>GitHub:</TextLabel>
-        <Input />
-      </StyledFormItem>
+      <TextLabel>GitHub:</TextLabel>
+<Form.Item
+  name="github"
+  rules={[
+    {
+      required: true,
+      validator: isLinkValid,
+    },
+  ]}
+>
+  <Input onChange={(e) => handleInputChange('github', e.target.value)} />
+</Form.Item>
 
-      <StyledFormItem
+<TextLabel>LinkedIn:</TextLabel>
+<Form.Item
+  name="linkedin"
+  rules={[
+    {
+      required: true,
+      validator: isLinkValid,
+    },
+  ]}
+>
+  <Input onChange={(e) => handleInputChange('linkedin', e.target.value)} />
+</Form.Item>
+
+      <TextLabel>Valor do CRA:</TextLabel>
+      <Form.Item
         name="cra"
+        label=""
         rules={[
-          { required: true, message: 'Por favor, insira o Valor do CRA!' },
-          { type: 'number', message: 'Por favor, insira um número válido!' },
+          {
+            required: true,
+            validator: async (_, value) => {
+              if (!value) {
+                return Promise.reject('Por favor, insira o valor do CRA.');
+              } else if (isNaN(value)) {
+                return Promise.reject('O valor do CRA deve ser um número.');
+              } else if (value < 0 || value > 10) {
+                return Promise.reject('O valor do CRA deve estar entre 0 e 10.');
+              }
+              return Promise.resolve();
+            },
+          },
         ]}
       >
-        <TextLabel>Valor do CRA:</TextLabel>
-        <Input type="number" step="0.01" />
-      </StyledFormItem>
+        <Input type="number" step="0.01" min="0" max="10" />
+      </Form.Item>
 
-      <StyledFormItem
+      <TextLabel>Período que está:</TextLabel>
+      <Form.Item
         name="periodo"
         rules={[
-          { required: true, message: 'Por favor, selecione o Período que está!' },
+          {
+            required: true,
+            message: 'Por favor, selecione o período.',
+          },
         ]}
       >
-        <TextLabel>Período que está:</TextLabel>
         <Select>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((periodo) => (
             <Option key={periodo} value={periodo}>
@@ -230,18 +309,20 @@ const FormComponent = ({ onFinish }) => {
             </Option>
           ))}
         </Select>
-      </StyledFormItem>
+      </Form.Item>
 
-      <StyledFormItem
+      <TextLabel>Áreas de Interesse:</TextLabel>
+      <Form.Item
         name="areasInteresse"
         rules={[
           {
             required: true,
-            message: 'Por favor, selecione suas Áreas de Interesse!',
+            message: 'Por favor, selecione pelo menos uma área de interesse.',
+            type: 'array',
+            min: 1,
           },
         ]}
       >
-        <TextLabel>Áreas de Interesse:</TextLabel>
         <Select mode="multiple" placeholder="Selecione suas áreas de interesse">
           {areasDeInteresseOptions.map((area, index) => (
             <Option key={index} value={area}>
@@ -249,83 +330,40 @@ const FormComponent = ({ onFinish }) => {
             </Option>
           ))}
         </Select>
-      </StyledFormItem>
+      </Form.Item>
 
-      <StyledFormItem
-        name="certificado"
-        valuePropName="fileList"
-        getValueFromEvent={() => []}
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 18 }}
-      >
+      <StyledFormItem >
         <TextLabel>Certificado:</TextLabel>
-        <StyledUploadContainer onClick={handleCertificadoUploadClick} {...getCertificadoRootProps()} isDragActive={isCertificadoDragActive}>
-          {uploadedCertificado ? (
+        <StyledUploadContainer
+          onClick={handleCertificadoUploadClick}
+          {...getCertificadoRootProps()}
+          isDragActive={isCertificadoDragActive}
+        >
+          {formData.uploadedCertificado ? (
             <div>
               <CheckForms style={{ color: 'green', fontSize: '24px' }} />
               <UploadText>
-                {uploadedCertificado.name}{' '}
+                {formData.uploadedCertificado.path}{' '}
                 <StyledRemoveButton
                   type="text"
                   icon={<CloseOutlined />}
-                  onClick={() =>
-                    handleRemoveButtonClick(
-                      uploadedCertificado,
-                      setUploadedCertificado
-                    )
-                  }
+                  onClick={handleRemoveButtonClick}
                 />
               </UploadText>
             </div>
           ) : (
             <UploadText>
-              {isCertificadoDragActive ? 'Solte o arquivo aqui' : 'Arraste e solte o certificado ou clique para fazer o upload (PDF ou imagens)'}
+              {isCertificadoDragActive
+                ? 'Solte o arquivo aqui'
+                : 'Arraste ou solte o certificado ou clique para fazer o upload (PDF ou imagens)'}
             </UploadText>
           )}
           <StyledInputWrapper>
-            <input {...getCertificadoInputProps()} style={{ display: 'none' }} />
-            {uploadedCertificado && (
+            <input {...getCertificadoInputProps()} style={{ display: 'none' }} ref={certificadoInputRef} />
+            {formData.uploadedCertificado && (
               <StyledViewButton
                 icon={<EyeOutlined style={{ color: '#2878BE' }} />}
-                onClick={() => handleViewButtonClick(uploadedCertificado)}
-              >
-                Visualizar
-              </StyledViewButton>
-            )}
-          </StyledInputWrapper>
-        </StyledUploadContainer>
-      </StyledFormItem>
-
-      <StyledFormItem
-        name="historico"
-        valuePropName="fileList"
-        getValueFromEvent={() => []}
-      >
-        <TextLabel>Histórico acadêmico:</TextLabel>
-        <StyledUploadContainer onClick={handleHistoricoUploadClick} {...getHistoricoRootProps()} isDragActive={isHistoricoDragActive}>
-          {uploadedHistorico ? (
-            <div>
-              <CheckForms style={{ color: 'green', fontSize: '24px' }} />
-              <UploadText>
-                {uploadedHistorico.name}{' '}
-                <StyledRemoveButton
-                  type="text"
-                  icon={<CloseOutlined />}
-                  onClick={() => handleRemoveButtonClick(uploadedHistorico, setUploadedHistorico)}
-                />
-              </UploadText>
-            </div>
-          ) : (
-            <UploadText>
-              {isHistoricoDragActive ? 'Solte o arquivo aqui' : 'Arraste e solte o histórico acadêmico ou clique para fazer o upload (PDF ou imagens)'}
-            </UploadText>
-          )}
-          <StyledInputWrapper>
-            <input {...getHistoricoInputProps()} style={{ display: 'none' }} />
-            {uploadedHistorico && (
-              <StyledViewButton
-                icon={<EyeOutlined style={{ color: '#2878BE' }} />}
-                onClick={() => handleViewButtonClick(uploadedHistorico)}
+                onClick={() => handleViewButtonClick(formData.uploadedCertificado)}
               >
                 Visualizar
               </StyledViewButton>
@@ -335,11 +373,51 @@ const FormComponent = ({ onFinish }) => {
       </StyledFormItem>
 
       <StyledFormItem>
-        <Button type="primary" htmlType="submit">
-          Enviar
-        </Button>
+        <TextLabel>Histórico acadêmico:</TextLabel>
+        <StyledUploadContainer
+          onClick={handleHistoricoUploadClick}
+          {...getHistoricoRootProps()}
+          isDragActive={isHistoricoDragActive}
+        >
+          {formData.uploadedHistorico ? (
+            <div>
+              <CheckForms style={{ color: 'green', fontSize: '24px' }} />
+              <UploadText>
+                {formData.uploadedHistorico.path}{' '}
+                <StyledRemoveButton
+                  type="text"
+                  icon={<CloseOutlined />}
+                  onClick={handleHistoricoRemoveButtonClick}
+                />
+              </UploadText>
+            </div>
+          ) : (
+            <UploadText>
+              {isHistoricoDragActive
+                ? 'Solte o arquivo aqui'
+                : 'Arraste ou solte o histórico acadêmico ou clique para fazer o upload (PDF ou imagens)'}
+            </UploadText>
+          )}
+          <StyledInputWrapper>
+            <input {...getHistoricoInputProps()} style={{ display: 'none' }} ref={historicoInputRef} />
+            {formData.uploadedHistorico && (
+              <StyledViewButton
+                icon={<EyeOutlined style={{ color: '#2878BE' }} />}
+                onClick={() => handleViewButtonClick(formData.uploadedHistorico)}
+              >
+                Visualizar
+              </StyledViewButton>
+            )}
+          </StyledInputWrapper>
+        </StyledUploadContainer>
       </StyledFormItem>
-    </StyledForm>
+
+      <ContainerButton>
+        <ButtonCustom actived={true} text="Enviar" type="primary" htmlType="submit">
+          Enviar
+        </ButtonCustom>
+      </ContainerButton>
+    </Form>
   );
 };
 

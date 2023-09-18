@@ -1,6 +1,7 @@
 import React from 'react';
 import FormComponent from '../../components/Forms/Forms';
 import { TitlePages } from '../../components/TitlePages/TitlePages';
+import { ContainerTitle } from './styles';
 
 const Cadastro = () => {
   const onFinish = (values) => {
@@ -9,10 +10,12 @@ const Cadastro = () => {
   };
 
   return (
-    <div>
-      <TitlePages>Formulário de Contato</TitlePages>
+    <>
+    <ContainerTitle>
+      <TitlePages title="Formulário de Contato" />
+    </ContainerTitle>
       <FormComponent onFinish={onFinish} />
-    </div>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import { CardTags, Date, Title, UnderlinedText, WrapperTitle } from './styles'
 import { Tag } from '../Tag/Tag'
 
 
-export const CardTag = ({ title }) => {
+export const CardRegistrations = ({ title }) => {
   return (
     <CardTags>
       <WrapperTitle>

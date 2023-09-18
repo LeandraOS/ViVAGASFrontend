@@ -11,7 +11,7 @@ export const Details = () => {
   return (
     <>
         <Container>
-            <TitlePages>Detalhes da Vaga</TitlePages>
+            <TitlePages title="Detalhes da Vaga" />
             <Tag text="Status: ativa" />
         </Container>
         <Wrapper>

@@ -9,17 +9,24 @@ export const StyledForm = styled(Form)`
 `;
 
 export const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 10px;
+
+  margin-bottom: 24px;
   text-align: left; /* Alinhar o texto acima dos inputs à esquerda */
 
   .ant-form-item-label { /* Estilizar o rótulo (label) */
     color: #2878BE; /* Definir a cor azul */
-    display: flex; /* Colocar o rótulo em uma linha separada */
-    flex-direction: column;
+    display: flex; /* Manter o rótulo e o campo de entrada na mesma linha */
+    flex-direction: row; /* Manter o rótulo e o campo de entrada na mesma linha */
   }
-  
-  
 `;
+
+export const ContainerButton = styled.div`
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin: 64px;
+`
+
 
 export const StyledSubmitButton = styled(Button)`
   margin-top: 10px;

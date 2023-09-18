@@ -1,10 +1,10 @@
 import React from 'react'
 import { TitlePage } from './styles'
 
-export const TitlePages = () => {
+export const TitlePages = ({title, align, margin}) => {
   return (
-    <TitlePage>
-      Detalhes da Vaga
+    <TitlePage align={align} margin={margin}>
+      {title}
     </TitlePage>
   )
 }

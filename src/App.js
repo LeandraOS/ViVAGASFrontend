@@ -6,6 +6,8 @@ import { Vagas } from './pages/Vacancy/Vagas';
 import { Details } from './pages/Details/Details';
 import Cadastro from './pages/Cadastro/Cadastro';
 import { ButtonCustom } from './components/Button/Button';
+import { Registrations } from './pages/Registrations/Registrations';
+import { Selections } from './pages/Selections/Selections';
 
 function App() {
   return (
@@ -17,6 +19,11 @@ function App() {
           <Route path='/vagas' element={<Vagas />} />
           <Route path='/detalhes' element={<Details />} />
           <Route path='/cadastro' element={<Cadastro />} />
+          <Route path='/inscricoes' element={<Registrations />} />
+          <Route path='/selecoes' element={<Selections />} />
+
+
+
 
           {/* Adicionando um botão para ir para a página de cadastro */}
           <Route
