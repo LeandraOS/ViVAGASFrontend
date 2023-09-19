@@ -2,7 +2,7 @@ import React from 'react';
 import { ItemList } from './styles';
 import { CardDetails } from './CardDetails';
 
-function CardLists({
+export function CardLists({
   items, icon, title, numberOfItemsToRender,
 }) {
   // Use o método `slice` para limitar o número de itens a serem renderizados
@@ -16,5 +16,3 @@ function CardLists({
     </CardDetails>
   );
 }
-
-export default CardLists;
