@@ -8,12 +8,14 @@ import Cadastro from './pages/Cadastro/Cadastro';
 import { ButtonCustom } from './components/Button/Button';
 import { Registrations } from './pages/Registrations/Registrations';
 import { Selections } from './pages/Selections/Selections';
+import { GoodLuck } from './modals/TextImg/GoodLuck';
+import { HelpModal } from './modals/TextImg/TextImg';
 
 function App() {
   return (
     <>
-      <AppBar />
       <BrowserRouter>
+      <AppBar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/vagas' element={<Vagas />} />
@@ -21,6 +23,7 @@ function App() {
           <Route path='/cadastro' element={<Cadastro />} />
           <Route path='/inscricoes' element={<Registrations />} />
           <Route path='/selecoes' element={<Selections />} />
+          <Route path='/ajuda' element={<HelpModal />} />
 
 
 

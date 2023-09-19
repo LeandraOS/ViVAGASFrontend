@@ -2,13 +2,13 @@ import React from 'react'
 import { Container, LinksContainer, Links } from './styles'
 import { LogoViVagas } from '../../assets/Logo/Logo'
 import { ButtonCustom } from '../Button/Button'
-//import { ProfileMenu } from '../ProfileMenu/ProfileMenu.jsx'
+import { Link } from 'react-router-dom'; // Importe o Link
 
 export const AppBar = () => {
   const pages = [
-    { title: 'Inscrições', url: '/' },
-    { title: 'Vagas', url: '/' },
-    { title: 'Detalhes', url: '/' },
+    { title: 'Inscrições', url: '/inscricoes' }, // Atualize os URLs correspondentes
+    { title: 'Vagas', url: '/vagas' },
+    { title: 'Detalhes', url: '/detalhes' },
   ]
 
   return (
@@ -17,7 +17,7 @@ export const AppBar = () => {
         <LogoViVagas />
         {pages.map((page) => (
           <Links key={page.title}>
-            {page.title}
+            <Link to={page.url}>{page.title}</Link>
           </Links>
         ))}
         <ButtonCustom actived={true} text='Login' marginLeft='11.5rem' />
@@ -27,4 +27,3 @@ export const AppBar = () => {
     </Container>
   )
 }
-

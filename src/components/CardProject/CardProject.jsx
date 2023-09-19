@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, ContainerDescription, Date, Description, LinkDetails, Title, TitlePoint, Wrapper, WrapperButtons } from './styles'
 import { Tag } from '../Tag/Tag'
 import { ButtonCustom } from '../Button/Button'
+import { Link } from 'react-router-dom'
 
 export const CardProject = ({active}) => {
   return (
@@ -28,8 +29,12 @@ export const CardProject = ({active}) => {
         <Date>Agosto de 2023</Date>
       </Wrapper>
       <WrapperButtons>
+        <Link to="/detalhes">
         <LinkDetails active={active}>Detalhes</LinkDetails>
+        </Link>
+        <Link to="/cadastro" style={{ textDecoration: 'none' }}>
         <ButtonCustom text='Candidate-se' actived={active}></ButtonCustom>
+        </Link>
       </WrapperButtons>
     </Card>
   )

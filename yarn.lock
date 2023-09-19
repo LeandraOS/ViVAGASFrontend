@@ -1494,15 +1494,15 @@
     "minimatch" "^3.1.2"
     "strip-json-comments" "^3.1.1"
 
-"@eslint/js@^8.47.0":
-  "integrity" "sha512-P6omY1zv5MItm93kLM8s2vr1HICJH8v0dvddDhysbIuZ+vcjOHg5Zbkf1mTkcmi2JA9oBG2anOkRnW8WJTS8Og=="
-  "resolved" "https://registry.npmjs.org/@eslint/js/-/js-8.47.0.tgz"
-  "version" "8.47.0"
+"@eslint/js@8.49.0":
+  "integrity" "sha512-1S8uAY/MTJqVx0SC4epBq+N2yhuwtNwLbJYNZyhL2pO1ZVKn5HFXav5T41Ryzy9K9V7ZId2JB2oy/W4aCd9/2w=="
+  "resolved" "https://registry.npmjs.org/@eslint/js/-/js-8.49.0.tgz"
+  "version" "8.49.0"
 
-"@humanwhocodes/config-array@^0.11.10":
-  "integrity" "sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ=="
-  "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.10.tgz"
-  "version" "0.11.10"
+"@humanwhocodes/config-array@^0.11.11":
+  "integrity" "sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA=="
+  "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.11.tgz"
+  "version" "0.11.11"
   dependencies:
     "@humanwhocodes/object-schema" "^1.2.1"
     "debug" "^4.1.1"
@@ -4848,15 +4848,15 @@
     "schema-utils" "^4.0.0"
 
 "eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8", "eslint@^3 || ^4 || ^5 || ^6 || ^7 || ^8", "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0", "eslint@^6.0.0 || ^7.0.0 || ^8.0.0", "eslint@^6.0.0 || ^7.0.0 || >=8.0.0", "eslint@^7.0.0 || ^8.0.0", "eslint@^7.5.0 || ^8.0.0", "eslint@^8.0.0", "eslint@^8.1.0", "eslint@^8.3.0", "eslint@>= 6":
-  "integrity" "sha512-spUQWrdPt+pRVP1TTJLmfRNJJHHZryFmptzcafwSvHsceV81djHOdnEeDmkdotZyLNjDhrOasNK8nikkoG1O8Q=="
-  "resolved" "https://registry.npmjs.org/eslint/-/eslint-8.47.0.tgz"
-  "version" "8.47.0"
+  "integrity" "sha512-jw03ENfm6VJI0jA9U+8H5zfl5b+FvuU3YYvZRdZHOlU2ggJkxrlkJH4HcDrZpj6YwD8kuYqvQM8LyesoazrSOQ=="
+  "resolved" "https://registry.npmjs.org/eslint/-/eslint-8.49.0.tgz"
+  "version" "8.49.0"
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.6.1"
     "@eslint/eslintrc" "^2.1.2"
-    "@eslint/js" "^8.47.0"
-    "@humanwhocodes/config-array" "^0.11.10"
+    "@eslint/js" "8.49.0"
+    "@humanwhocodes/config-array" "^0.11.11"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@nodelib/fs.walk" "^1.2.8"
     "ajv" "^6.12.4"

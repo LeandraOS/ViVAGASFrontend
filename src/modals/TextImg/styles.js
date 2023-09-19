@@ -1,4 +1,4 @@
-import { IoCloseOutline } from 'react-icons/io5'
+import { CloseOutlined } from '@ant-design/icons'
 import styled, { css } from 'styled-components'
 
 
@@ -43,7 +43,8 @@ export const Container = styled.div`
 }
 `
 
-export const IconX = styled(IoCloseOutline)`
+
+export const IconX = styled(CloseOutlined)`
   color: #2878BE;
   align-self: flex-end;
   cursor: pointer;
@@ -78,7 +79,7 @@ export const Text = styled.p`
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    line-height: 1.5;
     letter-spacing: 0.36px;
     margin: ${({ margin }) => margin} 0 0;
 
