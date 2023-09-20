@@ -5,7 +5,6 @@ import { CardDetails } from './CardDetails';
 export function CardLists({
   items, icon, title, numberOfItemsToRender,
 }) {
-  // Use o método `slice` para limitar o número de itens a serem renderizados
   const renderedItems = items.slice(0, numberOfItemsToRender);
 
   return (

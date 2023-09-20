@@ -30,10 +30,10 @@ export const CardProject = ({active}) => {
       </Wrapper>
       <WrapperButtons>
         <Link to="/detalhes">
-        <LinkDetails active={active}>Detalhes</LinkDetails>
+          <LinkDetails active={active}>Detalhes</LinkDetails>
         </Link>
-        <Link to="/cadastro" style={{ textDecoration: 'none' }}>
-        <ButtonCustom text='Candidate-se' actived={active}></ButtonCustom>
+        <Link to="/cadastro-aluno" style={{ textDecoration: 'none' }}>
+          <ButtonCustom text='Candidate-se' actived={active}></ButtonCustom>
         </Link>
       </WrapperButtons>
     </Card>

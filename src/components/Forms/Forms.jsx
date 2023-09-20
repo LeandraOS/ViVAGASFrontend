@@ -96,17 +96,17 @@ const FormComponent = ({ onFinish }) => {
     return storedData
       ? JSON.parse(storedData)
       : {
-          name: '',
-          email: '',
-          phone: '',
-          linkedin: '',
-          github: '',
-          cra: '',
-          periodo: '',
-          areasInteresse: [],
-          uploadedCertificado: null,
-          uploadedHistorico: null,
-        };
+        name: '',
+        email: '',
+        phone: '',
+        linkedin: '',
+        github: '',
+        cra: '',
+        periodo: '',
+        areasInteresse: [],
+        uploadedCertificado: null,
+        uploadedHistorico: null,
+      };
   });
 
   const certificadoInputRef = useRef(null);
@@ -202,18 +202,18 @@ const FormComponent = ({ onFinish }) => {
       initialValues={formData}
     >
       <TextLabel>Nome:</TextLabel>
-<Form.Item
+      <Form.Item
 
-  name="name"
-  rules={[
-    {
-      required: true,
-      message: 'Por favor, insira o nome.',
-    },
-  ]}
->
-  <Input onChange={(e) => handleInputChange('name', e.target.value)} />
-</Form.Item>
+        name="name"
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, insira o nome.',
+          },
+        ]}
+      >
+        <Input onChange={(e) => handleInputChange('name', e.target.value)} />
+      </Form.Item>
 
       <TextLabel>Email:</TextLabel>
       <Form.Item
@@ -244,30 +244,30 @@ const FormComponent = ({ onFinish }) => {
       </Form.Item>
 
       <TextLabel>GitHub:</TextLabel>
-<Form.Item
-  name="github"
-  rules={[
-    {
-      required: true,
-      validator: isLinkValid,
-    },
-  ]}
->
-  <Input onChange={(e) => handleInputChange('github', e.target.value)} />
-</Form.Item>
+      <Form.Item
+        name="github"
+        rules={[
+          {
+            required: true,
+            validator: isLinkValid,
+          },
+        ]}
+      >
+        <Input onChange={(e) => handleInputChange('github', e.target.value)} />
+      </Form.Item>
 
-<TextLabel>LinkedIn:</TextLabel>
-<Form.Item
-  name="linkedin"
-  rules={[
-    {
-      required: true,
-      validator: isLinkValid,
-    },
-  ]}
->
-  <Input onChange={(e) => handleInputChange('linkedin', e.target.value)} />
-</Form.Item>
+      <TextLabel>LinkedIn:</TextLabel>
+      <Form.Item
+        name="linkedin"
+        rules={[
+          {
+            required: true,
+            validator: isLinkValid,
+          },
+        ]}
+      >
+        <Input onChange={(e) => handleInputChange('linkedin', e.target.value)} />
+      </Form.Item>
 
       <TextLabel>Valor do CRA:</TextLabel>
       <Form.Item

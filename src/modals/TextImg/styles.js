@@ -19,7 +19,6 @@ export const OutContainer = styled.div`
     height: 104vh;
   }
 
-
 `
 
 export const Container = styled.div`
@@ -49,6 +48,12 @@ export const IconX = styled(CloseOutlined)`
   align-self: flex-end;
   cursor: pointer;
   font-size: 32px;
+
+  &:hover{
+    transition: transform 0.2s ease;
+    transform: scale(1.12);
+    color: #bf0603;
+  }
 
 `
 

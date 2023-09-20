@@ -24,7 +24,7 @@ export const Registrations = () => {
         </Wrapper>
       ) : (
         <ContainerEmpty>
-            <IsEmpty />
+          <IsEmpty />
         </ContainerEmpty>
       )}
     </>

@@ -12,13 +12,13 @@ export const Selections = () => {
       <TitlePages align="left" title="Minhas Seleções" margin="4rem" />
       {isTrue ? (
         <Wrapper>
-            <CardSelect title="Card 1" initialValue="10" />
-            <CardSelect title="Card 2" initialValue="20" />
-            <CardSelect title="Card 3" initialValue="30" />
+          <CardSelect title="Card 1" initialValue="10" />
+          <CardSelect title="Card 2" initialValue="20" />
+          <CardSelect title="Card 3" initialValue="30" />
         </Wrapper>
       ) : (
         <ContainerEmpty>
-            <IsEmpty />
+          <IsEmpty />
         </ContainerEmpty>
       )}
     </>

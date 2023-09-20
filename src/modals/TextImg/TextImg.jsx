@@ -51,7 +51,7 @@ export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, wi
 export const HelpModal = () =>{
   return(
     <TextImg iconComponent={<Learning />} textSize="14px" buttonText="Login" text="As vagas em projetos são destinadas aos alunos matriculados ou formados no curso de Ciência da Computação na UFCG. E estes, possuem o email institucional, sendo assim, para realizar o login e acessar o sistema, faça login com o google usando esse email."
-    justify="left" widthText="20rem" padding="2rem" margin="0" />
+      justify="left" widthText="20rem" padding="2rem" margin="0" />
   )
 }
 /*      <TextImg

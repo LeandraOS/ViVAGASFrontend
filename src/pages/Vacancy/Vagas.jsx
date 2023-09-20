@@ -8,17 +8,17 @@ import { SelectFilter } from '../../components/SelectFilter/SelectFilter'
 export const Vagas =() => {
   return (
     <>
-    <SearchComponent />
-    <SelectFilter></SelectFilter>
-    <Wrapper>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={true} ></CardProject>
-      <CardProject active={false} ></CardProject>
-    </Wrapper>
+      <SearchComponent />
+      <SelectFilter></SelectFilter>
+      <Wrapper>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={true} ></CardProject>
+        <CardProject active={false} ></CardProject>
+      </Wrapper>
     </>
   )
 }

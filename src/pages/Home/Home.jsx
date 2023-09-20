@@ -10,12 +10,12 @@ import { Link } from 'react-router-dom'
 export const Home = () => {
   return (
     <Wrapper>
-        <TitleWelcome />
-        <SubTitle text={'Faça login com a sua conta @ccc, @copins ou @computacao para acessar nossa plataforma.'} />
-        <ButtonGoogle />
-        <Link to="/ajuda" style={{ textDecoration: 'none' }}>
+      <TitleWelcome />
+      <SubTitle text={'Faça login com a sua conta @ccc, @copins ou @computacao para acessar nossa plataforma.'} />
+      <ButtonGoogle />
+      <Link to="/ajuda" style={{ textDecoration: 'none' }}>
         <Help />
-        </Link>
+      </Link>
         
     </Wrapper>
   )

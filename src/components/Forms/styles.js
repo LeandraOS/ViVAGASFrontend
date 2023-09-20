@@ -6,12 +6,16 @@ export const StyledForm = styled(Form)`
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  color: #2878BE; /* Definir a cor azul */
+  
 `;
 
 export const StyledFormItem = styled(Form.Item)`
 
   margin-bottom: 24px;
   text-align: left; /* Alinhar o texto acima dos inputs à esquerda */
+  color: #2878BE; /* Definir a cor azul */
+
 
   .ant-form-item-label { /* Estilizar o rótulo (label) */
     color: #2878BE; /* Definir a cor azul */

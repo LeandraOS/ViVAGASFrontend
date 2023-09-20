@@ -22,9 +22,9 @@ export const CheckForms = () => {
           y2="9.23077"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#5295A1" />
-          <stop offset="0.524028" stop-color="#4392BF" />
-          <stop offset="1" stop-color="#2878BE" />
+          <stop stopColor="#5295A1" />
+          <stop offset="0.524028" stopColor="#4392BF" />
+          <stop offset="1" stopColor="#2878BE" />
         </linearGradient>
       </defs>
     </svg>
