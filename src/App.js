@@ -8,7 +8,7 @@ import { ButtonCustom } from './components/Button/Button';
 import { Registrations } from './pages/Registrations/Registrations';
 import { Selections } from './pages/Selections/Selections';
 import { HelpModal } from './modals/TextImg/TextImg';
-import { CadastroAluno } from './pages/CadastroAluno/Cadastro';
+import { CadastroAluno } from './pages/CadastroAluno/CadastroAluno';
 import CadastroVagas from './pages/CadastroVagas/CadastroVagas';
 
 function App() {

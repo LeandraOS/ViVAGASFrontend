@@ -1,7 +1,12 @@
 import React from 'react'
 import { Paragraph } from '../../components/Paragraph/Paragraph'
 import { Container } from './styles'
-Text
+import { FormsVagas } from '../../components/FormsVaga/FormsVaga'
+
+const onFinish = (values) => {
+  // Validação bem-sucedida, você pode enviar os dados para a API aqui.
+  console.log('Valores enviados:', values);
+};
 
 export const CadastroVagas = () => {
 
@@ -13,6 +18,7 @@ export const CadastroVagas = () => {
   return (
     <Container>
       <Paragraph text={textoExemplo} />
+      <FormsVagas onFinish={onFinish} />
 
     </Container>
   )

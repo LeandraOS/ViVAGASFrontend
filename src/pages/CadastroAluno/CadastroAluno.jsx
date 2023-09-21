@@ -1,7 +1,7 @@
 import React from 'react';
-import FormComponent from '../../components/Forms/Forms';
 import { TitlePages } from '../../components/TitlePages/TitlePages';
 import { ContainerTitle } from './styles';
+import FormComponent from '../../components/FormsAluno/FormsAluno';
 
 export const CadastroAluno = () => {
   const onFinish = (values) => {
