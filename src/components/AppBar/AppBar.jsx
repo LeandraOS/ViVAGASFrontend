@@ -8,7 +8,6 @@ export const AppBar = () => {
   const pages = [
     { title: 'Inscrições', url: '/inscricoes' }, // Atualize os URLs correspondentes
     { title: 'Vagas', url: '/vagas' },
-    { title: 'Detalhes', url: '/detalhes' },
   ]
 
   return (

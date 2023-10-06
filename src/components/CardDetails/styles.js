@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { AppRegistrationOutlined, BookmarksOutlined, CalendarMonthOutlined, ContactMailOutlined, DesignServicesOutlined, PermContactCalendarOutlined } from '@mui/icons-material'
 import { MenuItem} from '@mui/material'
+import { Input } from 'antd'
 
 export const Card = styled.div`
   display: flex;
@@ -184,3 +185,30 @@ export const MenuCustom = styled(MenuItem)`
   color: #2086B6;
   font-size: 12px;
 `
+
+export const InputDate = styled(Input)`
+  width: 60%;
+  background: #C6E4FF;
+  border: 1px solid #2878BE;
+  color: #2878BE;
+
+
+`
+
+export const TextDate = styled.li`
+  color: #2086B6;
+  font-family: 'Inter', sans-serif;
+  margin-right: 0.5rem;
+  white-space: nowrap;
+
+
+`
+
+export const DateContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`
+
+export const CustomCalendarIcon = styled.i`
+`;

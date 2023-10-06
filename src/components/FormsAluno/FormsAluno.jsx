@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, Select, Form } from 'antd';
 import styled from 'styled-components';
-import { StyledForm, StyledFormItem, ContainerButton } from './styles';
+import { StyledForm, StyledFormItem, ContainerButton, StyledUploadContainer, UploadText, StyledRemoveButton,StyledInputWrapper, StyledViewButton  } from './styles';
 import { useDropzone } from 'react-dropzone';
-import TextLabel from './TextLabel';
+import {TextLabel} from './TextLabel';
 import { CheckForms } from '../../assets/CheckForms/CheckForms';
 
 import { EyeOutlined, CloseOutlined } from '@ant-design/icons';
@@ -21,63 +21,7 @@ const isLinkValid = (rule, value) => {
   return Promise.reject('Por favor, insira um link válido.');
 };
 
-const StyledUploadContainer = styled.div`
-  border: 2px dashed #8FC9FC;
-  flex-shrink: 0;
-  border-radius: 6px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  width: 560px;
-  transition: border 0.3s;
-  border-color: ${(props) => (props.isDragActive ? 'green' : '#8FC9FC')};
-`;
 
-const UploadText = styled.p`
-  color: #2878BE;
-  margin-bottom: 10px;
-  color: #2878BE;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  line-height: normal;
-`;
-
-const StyledInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledInput = styled.input`
-  flex: 1;
-  border: 1px solid #d9d9d9;
-  border-radius: 2px;
-  padding: 5px;
-  height: 32px;
-`;
-
-const StyledViewButton = styled(Button)`
-  align-self: center;
-  background: linear-gradient(270deg, #119db6 3.45%, #1b8dba 50.79%, #2878be 93.97%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Inter', sans-serif;
-`;
-
-const StyledRemoveButton = styled(Button)`
-  color: #2878be;
-
-  svg {
-    height: 12px;
-
-    &:hover {
-      color: red;
-    }
-  }
-`;
 
 const FormComponent = ({ onFinish }) => {
   const areasDeInteresseOptions = [
@@ -88,6 +32,38 @@ const FormComponent = ({ onFinish }) => {
     'Análise de Dados',
     'Machine Learning',
   ];
+
+  const generosOptions = [
+    'Cisgênero',
+    'Transgênero',
+    'Não-binário',
+    'Gênero fluido',
+    'Masculino',
+    'Feminino',
+    'Prefiro não responder'
+  ];
+
+  const orientacaoSexualOptions = [
+    'Heterossexual',
+    'Homossexual',
+    'Bissexual',
+    'Assexual',
+    'Panssexual',
+    'Prefiro não responder'
+
+  ];
+
+  const corRacaOptions= [
+    'Preto(a)',
+    'Pardo(a)',
+    'Branco(a)',
+    'Indígena',
+    'Amarelo(a)',
+    'Prefiro não responder'
+
+  ]
+
+
 
   const [form] = Form.useForm();
 
@@ -104,6 +80,9 @@ const FormComponent = ({ onFinish }) => {
         cra: '',
         periodo: '',
         areasInteresse: [],
+        corRaca: '',
+        genero: '',
+        orientacaoSexual:'',
         uploadedCertificado: null,
         uploadedHistorico: null,
       };
@@ -165,6 +144,11 @@ const FormComponent = ({ onFinish }) => {
         phone: parsedData.phone || '',
         linkedin: parsedData.linkedin || '',
         github: parsedData.github || '',
+        cra: parsedData.cra || '',
+        periodo: parsedData.periodo || '',
+        areasInteresse: parsedData.areasInteresse || '',
+        corRaca: parsedData.corRaca || '',
+        genero: parsedData.genero || '',
         uploadedCertificado: parsedData.uploadedCertificado || null,
         uploadedHistorico: parsedData.uploadedHistorico || null,
       }));
@@ -226,7 +210,7 @@ const FormComponent = ({ onFinish }) => {
           },
         ]}
       >
-        <Input />
+        <Input onChange={(e) => handleInputChange('email', e.target.value)} />
       </Form.Item>
 
       <TextLabel>Telefone:</TextLabel>
@@ -240,7 +224,7 @@ const FormComponent = ({ onFinish }) => {
           },
         ]}
       >
-        <Input />
+        <Input onChange={(e) => handleInputChange('phone', e.target.value)}/>
       </Form.Item>
 
       <TextLabel>GitHub:</TextLabel>
@@ -289,7 +273,7 @@ const FormComponent = ({ onFinish }) => {
           },
         ]}
       >
-        <Input type="number" step="0.01" min="0" max="10" />
+        <Input type="number" step="0.01" min="0" max="10" onChange={(e) => handleInputChange('cra', e.target.value)}/>
       </Form.Item>
 
       <TextLabel>Período que está:</TextLabel>
@@ -302,7 +286,7 @@ const FormComponent = ({ onFinish }) => {
           },
         ]}
       >
-        <Select>
+        <Select >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((periodo) => (
             <Option key={periodo} value={periodo}>
               {periodo}
@@ -331,6 +315,69 @@ const FormComponent = ({ onFinish }) => {
           ))}
         </Select>
       </Form.Item>
+
+      <TextLabel>Cor ou raça que se identifica:</TextLabel>
+      <Form.Item
+        name="corRaca"
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, selecione a sua cor ou raça.',
+            min: 1,
+          },
+        ]}
+      >
+        <Select placeholder="Selecione a sua cor ou raça">
+          {corRacaOptions.map((corRaca, index) => (
+            <Option key={index} value={corRaca}>
+              {corRaca}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+
+      <TextLabel>Gênero que se identifica:</TextLabel>
+      <Form.Item
+        name="genero"
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, selecione o gênero que se identifica.',
+            min: 1,
+          },
+        ]}
+      >
+        <Select placeholder="Selecione o gênero que você se identifica">
+          {generosOptions.map((genero, index) => (
+            <Option key={index} value={genero}>
+              {genero}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+
+      <TextLabel>Orientação sexual:</TextLabel>
+      <Form.Item
+        name="orientacaoSexual"
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, selecione a sua orientação sexual.',
+            min: 1,
+          },
+        ]}
+      >
+        <Select placeholder="Selecione a sua orientação sexual.">
+          {orientacaoSexualOptions.map((orientacao, index) => (
+            <Option key={index} value={orientacao}>
+              {orientacao}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+
+
+
 
       <StyledFormItem >
         <TextLabel>Certificado:</TextLabel>

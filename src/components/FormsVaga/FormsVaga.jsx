@@ -1,20 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Button, Select, Form, Row, Col } from 'antd';
 import styled from 'styled-components';
-import TextLabel from '../FormsAluno/TextLabel';
+import { DestaqueTextLabel, TextLabel } from '../FormsAluno/TextLabel';
 import { ButtonCustom } from '../Button/Button';
 import { ContainerButton } from '../FormsAluno/styles';
-
+import { Wrapper } from './styles';
 
 const RowInputs = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-`
+  display: flex;
+  flex-direction: row;
+  gap: ${(props) => props.gap || '2.1rem'};
+`;
+
 const { Option } = Select;
 
 export const FormsVagas = ({ onFinish }) => {
-  const areasDeInteresseOptions = [
+  const areaVagaOptions = [
     'Frontend',
     'Backend',
     'Infraestrutura',
@@ -23,8 +24,21 @@ export const FormsVagas = ({ onFinish }) => {
     'Machine Learning',
   ];
 
+  const cargaHorariaOptions = [
+    '12h',
+    '20h',
+    '30h',
+    '40h',
+  ];
+
+  const formatoOptions= [
+    'presencial',
+    'híbrido',
+    'remoto'
+  ]
+
   const softSkillsOptions = ['Habilidade de Comunicação', 'Trabalho em Equipe', 'Resolução de Problemas', 'Liderança'];
-  const formalRequirements = ['Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG ', 'CRA igual ou superior a 6,0 (seis)']
+  const requisitosFormais = ['Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG', 'CRA igual ou superior a 6,0 (seis)'];
 
   const [form] = Form.useForm();
 
@@ -33,28 +47,23 @@ export const FormsVagas = ({ onFinish }) => {
     return storedData
       ? JSON.parse(storedData)
       : {
-        name: '',
-        email: '',
-        phone: '',
-        linkedin: '',
-        github: '',
-        cra: '',
-        periodo: '',
-        areasInteresse: [],
-        uploadedCertificado: null,
-        uploadedHistorico: null,
         tituloProjeto: '',
         descricaoProjeto: '',
         softSkills: [],
-        formalRequirements: '',
-        infoAdminGraduacao: [
-          { bolsaValor: '', cargaHoraria: '', duracaoMeses: '', formato: '' },
-
-        ],
-        infoAdminPosGraduacao: [
-          { bolsaValor: '', cargaHoraria: '', duracaoMeses: '', formato: '' },
-
-        ],
+        areaVaga: [],
+        requisitosFormais: [],
+        bolsaValorGrad: '',
+        cargaHorariaGrad: '',
+        duracaoMesesGrad: '',
+        formatoGrad: '',
+        bolsaValorPos: '',
+        cargaHorariaPos: '',
+        duracaoMesesPos: '',
+        formatoPos: '',
+        aberturaInsc: '',
+        fechamentoInsc: '',
+        entrevistas: '',
+        resultado: '',
         formularioLink: '',
         observacoes: '',
       };
@@ -64,31 +73,7 @@ export const FormsVagas = ({ onFinish }) => {
     const storedData = localStorage.getItem('formData');
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      setFormData((prevData) => ({
-        ...prevData,
-        name: parsedData.name || '',
-        email: parsedData.email || '',
-        phone: parsedData.phone || '',
-        linkedin: parsedData.linkedin || '',
-        github: parsedData.github || '',
-        uploadedCertificado: parsedData.uploadedCertificado || null,
-        uploadedHistorico: parsedData.uploadedHistorico || null,
-        // Campos adicionados ...
-        tituloProjeto: parsedData.tituloProjeto || '',
-        descricaoProjeto: parsedData.descricaoProjeto || '',
-        softSkills: parsedData.softSkills || [],
-        formalRequirements: parsedData.requisitosFormais || '',
-        infoAdminGraduacao: parsedData.infoAdminGraduacao || [
-          { bolsaValor: '', cargaHoraria: '', duracaoMeses: '', formato: '' },
-
-        ],
-        infoAdminPosGraduacao: parsedData.infoAdminPosGraduacao || [
-          { bolsaValor: '', cargaHoraria: '', duracaoMeses: '', formato: '' },
-
-        ],
-        formularioLink: parsedData.formularioLink || '',
-        observacoes: parsedData.observacoes || '',
-      }));
+      setFormData(parsedData);
     }
   }, []);
 
@@ -111,6 +96,13 @@ export const FormsVagas = ({ onFinish }) => {
     }));
   };
 
+  const handleSelectChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   return (
     <>
       <Form
@@ -122,6 +114,7 @@ export const FormsVagas = ({ onFinish }) => {
         onFinish={handleSubmit}
         onFinishFailed={onFinishFailed}
         initialValues={formData}
+        form={form}
       >
         <TextLabel>Título do Projeto:</TextLabel>
         <Form.Item
@@ -163,10 +156,31 @@ export const FormsVagas = ({ onFinish }) => {
             },
           ]}
         >
-          <Select mode="multiple" placeholder="Selecione as habilidades de soft skills">
+          <Select mode="multiple" placeholder="Selecione as habilidades de soft skills" onChange={(value) => handleSelectChange('softSkills', value)}>
             {softSkillsOptions.map((skill, index) => (
               <Option key={index} value={skill}>
                 {skill}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <TextLabel>Área da vaga:</TextLabel>
+
+        <Form.Item
+          name="areaVaga"
+          rules={[
+            {
+              required: true,
+              message: 'Por favor, selecione pelo menos uma área da vaga.',
+              type: 'array',
+              min: 1,
+            },
+          ]}
+        >
+          <Select mode="multiple" placeholder="Selecione a(s) área(s) da vaga" onChange={(value) => handleSelectChange('areaVaga', value)}>
+            {areaVagaOptions.map((vaga, index) => (
+              <Option key={index} value={vaga}>
+                {vaga}
               </Option>
             ))}
           </Select>
@@ -183,8 +197,8 @@ export const FormsVagas = ({ onFinish }) => {
             },
           ]}
         >
-          <Select mode="multiple" placeholder="Selecione os requisitos formais">
-            {formalRequirements.map((requirements, index) => (
+          <Select mode="multiple" placeholder="Selecione os requisitos formais" onChange={(value) => handleSelectChange('requisitosFormais', value)}>
+            {requisitosFormais.map((requirements, index) => (
               <Option key={index} value={requirements}>
                 {requirements}
               </Option>
@@ -193,97 +207,157 @@ export const FormsVagas = ({ onFinish }) => {
         </Form.Item>
 
         {/* Informações Administrativas para Graduação */}
-     
-        <TextLabel>Informações Administrativas para Graduação:</TextLabel>
+        <DestaqueTextLabel color='#2878BE'>Informações Administrativas para Graduação:</DestaqueTextLabel>
         <RowInputs>
-          <Col span={4}>
-            <TextLabel>Valor da Bolsa:</TextLabel>
-            <Form.Item
-              name={['infoAdminGraduacao', 0, 'bolsaValor']}
-            >
-              <Input type='number' step="0.01" />
+          <Col span={5}>
+            <TextLabel>Valor da Bolsa(R$):</TextLabel>
+            <Form.Item name="bolsaValorGrad">
+              <Input
+                type='number'
+                step="0.01"
+                min={0}
+                value={formData.bolsaValorGrad}
+                onChange={(e) => handleInputChange('bolsaValorGrad', e.target.value)}
+              />
             </Form.Item>
           </Col>
           <Col span={4}>
             <TextLabel>Carga Horária:</TextLabel>
+            <Form.Item name="cargaHorariaGrad">
+              <Select placeholder="Selecione a(s) área(s) da vaga" onChange={(value) => handleSelectChange('cargaHorariaGrad', value)}>
+                {cargaHorariaOptions.map((vaga, index) => (
+                  <Option key={index} value={vaga}>
+                    {vaga}
+                  </Option>
+                ))}
+              </Select>
 
-            <Form.Item
-              name={['infoAdminGraduacao', 0, 'cargaHoraria']}
-            >
-              <Input type='number' />
             </Form.Item>
           </Col>
-          <Col span={4}>
-            <TextLabel>Duração:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminGraduacao', 0, 'duracaoMeses']}
-            >
-              <Input type='number'/>
+          <Col span={5}>
+            <TextLabel>Duração (Meses):</TextLabel>
+            <Form.Item name="duracaoMesesGrad">
+              <Input
+                type='number'
+                value={formData.duracaoMesesGrad}
+                onChange={(e) => handleInputChange('duracaoMesesGrad', e.target.value)}
+                min={0}
+              />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <TextLabel>Formato:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminGraduacao', 0, 'formato']}
-            >
-              <Select>
-                <Option value="presencial">Presencial</Option>
-                <Option value="hibrido">Híbrido</Option>
-                <Option value="remoto">Remoto</Option>
+            <Form.Item name="formatoGrad">
+              <Select placeholder="Selecione a(s) área(s) da vaga" onChange={(value) => handleSelectChange('formatoGrad', value)}>
+                {formatoOptions.map((vaga, index) => (
+                  <Option key={index} value={vaga}>
+                    {vaga}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </Col>
         </RowInputs>
 
         {/* Informações Administrativas para Pós-Graduação */}
-        <TextLabel>Informações Administrativas para Pós-Graduação:</TextLabel>
+        <DestaqueTextLabel color="">Informações Administrativas para Pós-Graduação:</DestaqueTextLabel>
         <RowInputs>
-          <Col span={4}>
-            <TextLabel>Bolsa:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminPosGraduacao', 0, 'bolsaValor']}
-             
-            >
-              <Input type='number'/>
+          <Col span={5}>
+            <TextLabel color='#119DB6' >Valor da Bolsa(R$):</TextLabel>
+            <Form.Item name="bolsaValorPos">
+              <Input
+                type='number'
+                step="0.01"
+                min={0}
+                value={formData.bolsaValorGrad}
+                onChange={(e) => handleInputChange('bolsaValorPos', e.target.value)}
+              />
             </Form.Item>
           </Col>
           <Col span={4}>
-            <TextLabel>Carga Horária:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminPosGraduacao', 0, 'cargaHoraria']}
-            >
-              <Input type='number'/>
+            <TextLabel color='#119DB6'>Carga Horária:</TextLabel>
+            <Form.Item name="cargaHorariaPos">
+              <Select placeholder="Selecione a(s) área(s) da vaga" onChange={(value) => handleSelectChange('cargaHorariaPos', value)}>
+                {cargaHorariaOptions.map((vaga, index) => (
+                  <Option key={index} value={vaga}>
+                    {vaga}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
-
-          <Col span={4}>
-            <TextLabel>Duração:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminPosGraduacao', 0, 'duracaoMeses']}
-            >
-              <Input type='number'/>
+          <Col span={5}>
+            <TextLabel color='#119DB6'>Duração (Meses):</TextLabel>
+            <Form.Item name="duracaoMesesPos">
+              <Input
+                type='number'
+                value={formData.duracaoMesesGrad}
+                onChange={(e) => handleInputChange('duracaoMesesPos', e.target.value)}
+                min={0}
+              />
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <TextLabel>Formato:</TextLabel>
-
-            <Form.Item
-              name={['infoAdminPosGraduacao', 0, 'formato']}
-            >
-              <Select>
-                <Option value="presencial">Presencial</Option>
-                <Option value="hibrido">Híbrido</Option>
-                <Option value="remoto">Remoto</Option>
+          <Col span={6}>
+            <TextLabel color='#119DB6'>Formato:</TextLabel>
+            <Form.Item name="formatoPos">
+              <Select placeholder="Selecione a(s) área(s) da vaga" onChange={(value) => handleSelectChange('formatoPos', value)}>
+                {formatoOptions.map((vaga, index) => (
+                  <Option key={index} value={vaga}>
+                    {vaga}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </Col>
         </RowInputs>
-      
+
+
+        <TextLabel margin='12px'>Cronograma:</TextLabel>
+        <RowInputs gap='1.2rem'>
+          <Col span={6}>
+            <TextLabel>Abertura de inscrições:</TextLabel>
+            <Form.Item name="aberturaInsc">
+              <Input
+                type='date'
+                value={formData.aberturaInsc}
+                onChange={(e) => handleInputChange('aberturaInsc', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={5.5}>
+            <TextLabel>Término de inscrições:</TextLabel>
+            <Form.Item name="fechamentoInsc">
+              <Input
+                type='date'
+                value={formData.duracaoMesesGrad}
+                onChange={(e) => handleInputChange('fechamentoInsc', e.target.value)}
+                min={0}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={5}>
+            <TextLabel>Entrevistas:</TextLabel>
+            <Form.Item name="entrevistas">
+              <Input
+                type='date'
+                value={formData.duracaoMesesGrad}
+                onChange={(e) => handleInputChange('entrevistas', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          
+          <Col span={5}>
+            <TextLabel>Resultado:</TextLabel>
+            <Form.Item name="resultado">
+              <Input
+                type='date'
+                value={formData.duracaoMesesGrad}
+                onChange={(e) => handleInputChange('resultado', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+        </RowInputs>
+
         {/* Link para o Formulário */}
         <TextLabel>Link para o Formulário:</TextLabel>
         <Form.Item
@@ -295,7 +369,7 @@ export const FormsVagas = ({ onFinish }) => {
             },
           ]}
         >
-          <Input onChange={(e) => handleInputChange('formularioLink', e.target.value)} />
+          <Input onChange={(e) => handleInputChange('formularioLink', e.target.value)} type='url' />
         </Form.Item>
 
         {/* Campo de Observações */}
@@ -307,12 +381,10 @@ export const FormsVagas = ({ onFinish }) => {
         {/* Botão de Envio */}
         <ContainerButton>
           <ButtonCustom actived={true} text="Enviar" type="primary" htmlType="submit">
-          Enviar
+            Enviar
           </ButtonCustom>
         </ContainerButton>
       </Form>
     </>
   );
 };
-
-

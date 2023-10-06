@@ -2,13 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Label = styled.label`
-  display: block; /* Coloca o rótulo em uma linha separada */
-  color: #2878BE; /* Define a cor azul */
-  margin-bottom: 5px; /* Adicione algum espaço entre o rótulo e o input */
+  display: block;
+  color: ${(props) => props.color || '#2878BE'};
+  margin-bottom:  ${(props) => props.margin || '5px'};
 `;
 
-const TextLabel = ({ children }) => {
-  return <Label>{children}</Label>;
+const TextLabelD = styled.label`
+  display: block; 
+  color: #2878BE; 
+  margin-bottom: 12px; 
+  color: ${(props) => props.color || '#119DB6'};
+  font-weight: 600;
+  font-size: 16px;
+
+
+  
+`
+
+export const TextLabel = ({ children, color, margin }) => {
+  return <Label margin={margin} color={color}>{children}</Label>;
 };
 
-export default TextLabel;
+export const DestaqueTextLabel = ({children, color}) => {
+  return <TextLabelD color={color}>{children}</TextLabelD>
+}

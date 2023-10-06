@@ -6,6 +6,7 @@ import { Wrapper } from '../Vacancy/styles'
 import { CardLists } from '../../components/CardDetails/CardLists'
 import {  IconObs, IconPsy, IconRequisitos, IconTeacher } from '../../components/CardDetails/styles'
 import { CardInfosAdm } from '../../components/CardDetails/CardInfosAdm'
+import { Calendar } from '../../components/CardDetails/Calendar'
 
 export const Details = () => {
   return (
@@ -36,6 +37,7 @@ export const Details = () => {
           numberOfItemsToRender={2} // Especifique o número de itens a serem renderizados
         />
         <CardInfosAdm />
+        <Calendar />
         <CardLists
           icon={IconTeacher}
           title='Professores'
@@ -54,16 +56,6 @@ export const Details = () => {
           ]}
           numberOfItemsToRender={1} // Obtenha o comprimento do array 'items'
         />
-
-        <CardLists
-          icon={IconObs}
-          title='Observações'
-          items={[
-            'Atenção. Todas as comunicações serão feitas exclusivamente por email e para todas as pessoas inscritas. Portanto, não há necessidade de enviar mensagem consultando o andamento do processo.'
-          ]}
-          numberOfItemsToRender={1} // Obtenha o comprimento do array 'items'
-        />
-
       </Wrapper>
     </>
       
