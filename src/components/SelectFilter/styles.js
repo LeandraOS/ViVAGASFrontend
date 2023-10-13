@@ -1,3 +1,4 @@
+import { Select } from 'antd';
 import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -15,3 +16,10 @@ export const Label = styled.p`
     font-family: 'Inter', sans-serif;
 `
 
+export const SelectColor = styled(Select)`
+    div{
+    border-color: #2878BE !important; 
+    border-width: 1px;
+    
+    }
+`

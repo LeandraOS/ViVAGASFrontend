@@ -10,6 +10,7 @@ import { Selections } from './pages/Selections/Selections';
 import { HelpModal } from './modals/TextImg/TextImg';
 import { CadastroAluno } from './pages/CadastroAluno/CadastroAluno';
 import CadastroVagas from './pages/CadastroVagas/CadastroVagas';
+import { Subscribers } from './pages/Subscribers/Subscribers';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path='/inscricoes' element={<Registrations />} />
           <Route path='/selecoes' element={<Selections />} />
           <Route path='/ajuda' element={<HelpModal />} />
+          <Route path='/inscritos' element={<Subscribers />} />
+
 
 
 

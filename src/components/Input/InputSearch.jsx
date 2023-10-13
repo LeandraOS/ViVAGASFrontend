@@ -1,12 +1,13 @@
+// SearchComponent.jsx
 
 import React, { useState } from 'react';
 import { SearchContainer, SearchInput, SearchButton, SearchIcon } from './styles';
 
-export const SearchComponent = () => {
+export const SearchComponent = ({ onSearchTextChange }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
-    console.log('Searching for:', searchText);
+    onSearchTextChange(searchText);
   };
 
   return (
@@ -15,7 +16,11 @@ export const SearchComponent = () => {
         type="text"
         placeholder="Pesquisar..."
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
+        onChange={(e) => {
+          const newText = e.target.value;
+          setSearchText(newText);
+          onSearchTextChange(newText);
+        }}
       />
       <SearchButton onClick={handleSearch}>
         <SearchIcon />

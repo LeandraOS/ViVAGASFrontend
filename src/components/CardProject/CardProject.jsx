@@ -1,32 +1,33 @@
-import React from 'react'
-import { Card, ContainerDescription, Date, Description, LinkDetails, Title, TitlePoint, Wrapper, WrapperButtons } from './styles'
-import { Tag } from '../Tag/Tag'
-import { ButtonCustom } from '../Button/Button'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Card, ContainerDescription, Date, Description, LinkDetails, Title, TitlePoint, Wrapper, WrapperButtons } from './styles';
+import { Tag } from '../Tag/Tag';
+import { ButtonCustom } from '../Button/Button';
+import { Link } from 'react-router-dom';
 
-export const CardProject = ({active}) => {
+export const CardProject = ({ data }) => {
+  const { title, description, areas, technologies, startDate, active } = data;
+
   return (
-
     <Card active={active}>
-      <Title>Título do projeto</Title>
+      <Title>{title}</Title>
       <ContainerDescription>
-        <Description>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-      Lorem Ipsum has been the industrys standard.
-        </Description>
+        <Description>{description}</Description>
       </ContainerDescription>
       <Wrapper>
         <TitlePoint>Áreas do projeto</TitlePoint>
-        <Tag text='Frontend'></Tag>
+        {areas.map((area, index) => (
+          <Tag key={index} text={area} />
+        ))}
       </Wrapper>
       <Wrapper>
         <TitlePoint>Tecnologia(s)</TitlePoint>
-        <Tag text='React'></Tag>
-        <Tag text='Go'></Tag>
+        {technologies.map((tech, index) => (
+          <Tag key={index} text={tech} />
+        ))}
       </Wrapper>
       <Wrapper>
         <TitlePoint>Previsão de início(s)</TitlePoint>
-        <Date>Agosto de 2023</Date>
+        <Date>{startDate}</Date>
       </Wrapper>
       <WrapperButtons>
         <Link to="/detalhes">
@@ -37,5 +38,6 @@ export const CardProject = ({active}) => {
         </Link>
       </WrapperButtons>
     </Card>
-  )
-}
+  );
+};
+ 
