@@ -11,10 +11,12 @@ import { HelpModal } from './modals/TextImg/TextImg';
 import { CadastroAluno } from './pages/CadastroAluno/CadastroAluno';
 import CadastroVagas from './pages/CadastroVagas/CadastroVagas';
 import { Subscribers } from './pages/Subscribers/Subscribers';
+import { AuthGoogleProvider } from './contexts/authGoogle';
+
 
 function App() {
   return (
-    <>
+    <AuthGoogleProvider>
       <BrowserRouter>
         <AppBar />
         <Routes>
@@ -46,7 +48,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthGoogleProvider>
   )
 }
 

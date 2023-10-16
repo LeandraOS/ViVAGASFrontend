@@ -1,30 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Text } from './styles'
 import { Google } from '../../assets/Google/Google'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { app } from '../../services/firebaseConfig';
-
-
-const provider = new GoogleAuthProvider();
-
+import { AuthGoogleContext } from '../../contexts/authGoogle'
 
 export const ButtonGoogle = () => {
-  const auth = getAuth(app);
-
-  const signInGoogle = () =>{
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log(user)
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
-  }
+  const {signInGoogle} = useContext(AuthGoogleContext)
 
   return (
     <Button onClick={signInGoogle}>
