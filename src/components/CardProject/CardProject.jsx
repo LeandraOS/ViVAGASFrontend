@@ -5,7 +5,7 @@ import { ButtonCustom } from '../Button/Button';
 import { Link } from 'react-router-dom';
 
 export const CardProject = ({ data }) => {
-  const { title, description, areas, technologies, startDate, active } = data;
+  const { title, description, areas, technologies, startDate, active, level, laboratory } = data;
 
   return (
     <Card active={active}>
@@ -29,6 +29,14 @@ export const CardProject = ({ data }) => {
         <TitlePoint>Previsão de início(s)</TitlePoint>
         <Date>{startDate}</Date>
       </Wrapper>
+      <Wrapper>
+        <TitlePoint>Nível da Vaga</TitlePoint>
+        <Tag text={level}/>
+      </Wrapper>
+      <Wrapper>
+        <TitlePoint>Laboratório</TitlePoint>
+        <Tag text={laboratory}/>
+      </Wrapper>
       <WrapperButtons>
         <Link to="/detalhes">
           <LinkDetails active={active}>Detalhes</LinkDetails>
@@ -40,4 +48,3 @@ export const CardProject = ({ data }) => {
     </Card>
   );
 };
- 

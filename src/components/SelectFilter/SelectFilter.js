@@ -3,21 +3,34 @@ import { Select, Tag } from 'antd';
 import { Label, Wrapper } from './styles';
 
 const categories = {
-  vagas: ['Todas'],
-  tecnologias: [
-    'React', 'Angular', 'Vue', 'Node.js', 'Python', 'Java', 'C#', 'Ruby', 'PHP', 'Swift',
-  ],
-  laboratorios: ['splab', 'lsd', 'lacina'],
-  areas: ['Frontend', 'Backend', 'Mobile', 'Data Science', 'DevOps', 'UX/UI'],
-  niveis: ['Iniciante', 'Intermediário', 'Avançado'],
+  tecnologias: ['Todas', 'React', 'Angular', 'Vue', 'Node.js', 'Python', 'Java', 'C#', 'Ruby', 'PHP', 'Swift'],
+  laboratorios: ['Todas', 'splab', 'lsd', 'lacina'],
+  areas: ['Todas', 'Frontend', 'Backend', 'Mobile', 'Data Science', 'DevOps', 'UX/UI'],
+  niveis: ['Todas', 'Iniciante', 'Intermediário', 'Avançado'],
 };
 
 export const SelectFilter = ({ onFilterChange }) => {
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({
+    vagas: [],
+    tecnologias: [],
+    laboratorios: [],
+    areas: [],
+    niveis: [],
+  });
 
-  const handleChange = (value) => {
-    setSelectedFilters(value);
-    onFilterChange(value); // Chama a função de retorno de chamada em Vagas
+  const handleChange = (key, values) => {
+    const lowercasedValues = values.map(value => value.toLowerCase());
+    setSelectedFilters({ ...selectedFilters, [key]: lowercasedValues });
+    onFilterChange({ ...selectedFilters, [key]: lowercasedValues });
+  };
+
+  const handleFilterChange = (key, values) => {
+    if (values.includes('Todas')) {
+      // Se "Todas" estiver selecionada, limpe o filtro
+      handleChange(key, []);
+    } else {
+      handleChange(key, values);
+    }
   };
 
   const tagRender = (props) => {
@@ -46,23 +59,6 @@ export const SelectFilter = ({ onFilterChange }) => {
   return (
     <>
       <Wrapper>
-        <Label>Vagas:</Label>
-        <Select
-          mode="multiple"
-          allowClear
-          style={{
-            width: '10%',
-            borderColor: '#8FC9FC',
-          }}
-          placeholder="Selecione"
-          onChange={handleChange}
-          tagRender={tagRender}
-          options={categories.vagas.map((option) => ({
-            label: option,
-            value: option,
-          }))}
-        />
-
         <Label>Tecnologia:</Label>
         <Select
           mode="multiple"
@@ -71,7 +67,7 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={handleChange}
+          onChange={(value) => handleFilterChange('tecnologias', value)}
           tagRender={tagRender}
           options={categories.tecnologias.map((option) => ({
             label: option,
@@ -87,13 +83,14 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={handleChange}
+          onChange={(value) => handleFilterChange('laboratorios', value)}
           tagRender={tagRender}
           options={categories.laboratorios.map((option) => ({
             label: option,
             value: option,
           }))}
         />
+
         <Label>Área:</Label>
         <Select
           mode="multiple"
@@ -102,9 +99,25 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={handleChange}
+          onChange={(value) => handleFilterChange('areas', value)}
           tagRender={tagRender}
           options={categories.areas.map((option) => ({
+            label: option,
+            value: option,
+          }))}
+        />
+
+        <Label>Nível:</Label>
+        <Select
+          mode="multiple"
+          allowClear
+          style={{
+            width: '20%',
+          }}
+          placeholder="Selecione"
+          onChange={(value) => handleFilterChange('niveis', value)}
+          tagRender={tagRender}
+          options={categories.niveis.map((option) => ({
             label: option,
             value: option,
           }))}
