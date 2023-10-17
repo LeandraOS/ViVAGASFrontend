@@ -69,16 +69,20 @@ export const AuthGoogleProvider = ({ children }) => {
   // Função para determinar o tipo com base no e-mail
   const getUserTypeFromEmail = (email) => {
     const allowedDomains = ['computacao', 'ccc', 'copins'];
-
-    const domain = email.split('@')[1];
+  
+    const domain = email.split('@')[1].split('.')[0]; // Obtém o domínio sem a parte '.com' ou '.br', etc.
+  
     if (allowedDomains.includes(domain)) {
-      return 'aluno';
-    } else if (domain === 'computacao') {
-      return 'professor';
+      if (domain === 'computacao') {
+        return 'professor';
+      } else {
+        return 'aluno';
+      }
     } else {
       return null; // Domínio não autorizado
     }
   }
+  
 
   return (
     <AuthGoogleContext.Provider value={{ signInGoogle, signed: !!user, user, userType, signOut }}>

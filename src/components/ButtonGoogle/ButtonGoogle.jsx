@@ -10,6 +10,7 @@ export const ButtonGoogle = () => {
   async function loginGoogle(){
     await signInGoogle()
   }
+
   if(!signed){
     
     return (
@@ -19,7 +20,6 @@ export const ButtonGoogle = () => {
       </Button>
     )
   }else{
-    console.log(user)
-    return <Navigate to='/vagas'/>
+    return <Navigate to='/'/>
   }
 }
