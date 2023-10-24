@@ -3,37 +3,38 @@ import { CardProject } from '../../components/CardProject/CardProject';
 import { Wrapper } from './styles';
 import { SearchComponent } from '../../components/Input/InputSearch';
 import { SelectFilter } from '../../components/SelectFilter/SelectFilter';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 const YourData = [
   {
     title: 'NuFuturo',
-    description: 'Descrição do projeto',
-    areas: ['data science', 'frontend'],
-    technologies: ['react', 'Tecnologia 2'],
-    startDate: '01/01/2023',
-    active: true,
-    level: 'Intermediário',
-    laboratory: 'splab',
-  },
-  {
-    title: 'Nome do Projeto',
-    description: 'Descrição do projeto',
-    areas: ['Área 1', 'Área 2'],
-    technologies: ['Tecnologia 1', 'Tecnologia 2'],
-    startDate: '01/01/2023',
+    description: 'Trata-se de uma cooperação entre Computação@UFCG e o Nubank, uma das maiores plataformas de serviços financeiros do mundo com mais 70 milhões de clientes na América Latina. Estudantes de graduação e pós-graduação terão a oportunidade de desenvolver conhecimento técnicos e metodologias inovadoras, em um ambiente de inovação com desafios reais de grande porte e impacto de negócio.',
+    areas: ['backend', 'frontend', 'segurança', 'teste de stress'],
+    technologies: ['react', 'clojure', 'python'],
+    startDate: '10/10/2023',
     active: true,
     level: 'Iniciante',
-    laboratory: 'Lsd',
+    laboratory: 'SPLab e LSD',
   },
   {
-    title: 'Nome do Projeto',
-    description: 'Descrição do projeto',
-    areas: ['Área 1'],
-    technologies: ['Tecnologia 1', 'Tecnologia 2'],
-    startDate: '01/01/2023',
+    title: 'CodeSQ',
+    description: 'Trata-se de ferramenta para gerenciamento e controle de qualidade dos projetos da empresa HP(E)',
+    areas: ['Frontend', 'Backend'],
+    technologies: ['Golang'],
+    startDate: '01/11/2023',
     active: true,
     level: 'Iniciante',
-    laboratory: 'Lsd',
+    laboratory: 'SPLab',
+  },
+  {
+    title: 'Dell AI Channels',
+    description: 'Projeto da UFCG em parceria com a Dell EMC que utiliza técnicas de Processamento de Linguagem Natural(NLP) e Aprendizagem de Máquina (IML) e tem como objetivo a criação de um sistema de resposta automática, buscando aprimorar a experiência do consumidor.',
+    areas: ['Inteligência Artificial'],
+    technologies: ['python', 'SKLearn', 'Pandas', 'NumPy'],
+    startDate: '08/10/2023',
+    active: true,
+    level: 'Iniciante',
+    laboratory: 'LSD e LMD',
   },
   // Adicione mais objetos de dados conforme necessário
 ];
@@ -93,6 +94,7 @@ export const Vagas = () => {
 
   return (
     <>
+      <BackButton />
       <SearchComponent onSearchTextChange={handleSearchTextChange} />
       <SelectFilter onFilterChange={handleFilterChange} />
       <Wrapper>

@@ -4,6 +4,7 @@ import { Container, IconX, OutContainer, Text, TextContainer } from './styles'
 import { ButtonCustom } from '../../components/Button/Button'
 import { Learning } from '../../assets/Woman/Learning'
 import { useNavigate } from 'react-router-dom';
+import { ButtonLogin } from '../../components/ButtonLogin/ButtonLogin';
 
 
 
@@ -42,7 +43,7 @@ export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, wi
         <TextContainer widthText={widthText} padding={padding}>
           <Text textSize={textSize} justify={justify} margin={margin}>{text}</Text>
         </TextContainer>
-        <ButtonCustom text={buttonText} marginLeft="0" actived={true}/>
+        <ButtonLogin text={buttonText} marginLeft="0" actived={true}/>
       </Container>
     </OutContainer>
   )

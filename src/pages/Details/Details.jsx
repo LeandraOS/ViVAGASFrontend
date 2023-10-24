@@ -7,10 +7,11 @@ import { CardLists } from '../../components/CardDetails/CardLists'
 import {  IconObs, IconPsy, IconRequisitos, IconTeacher } from '../../components/CardDetails/styles'
 import { CardInfosAdm } from '../../components/CardDetails/CardInfosAdm'
 import { Calendar } from '../../components/CardDetails/Calendar'
-
+import { BackButton } from '../../components/BackButton/BackButton'
 export const Details = () => {
   return (
     <>
+      <BackButton/>
       <Container>
         <TitlePages title="Detalhes da Vaga" />
         <Tag text="Status: ativa" />

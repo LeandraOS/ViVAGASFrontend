@@ -5,10 +5,10 @@ import { Input } from 'antd'
 
 export const Calendar = () => {
   const dates = [
-    { label: 'Abertura de inscrições', date: '13/10/2023' },
-    { label: 'Término de inscrições', date: '18/10/2023' },
-    { label: 'Entrevistas', date: '09/10/2023' },
-    { label: 'Resultado', date: '25/10/2023' },
+    { label: 'Abertura de inscrições', date: '20/10/2023' },
+    { label: 'Término de inscrições', date: '30/10/2023' },
+    { label: 'Entrevistas', date: '02/11/2023' },
+    { label: 'Resultado', date: '12/11/2023' },
   ];
 
   const formatarData = (dataString) => {

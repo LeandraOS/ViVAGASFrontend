@@ -34,7 +34,7 @@ export const Title = styled.h1`
 
 export const ContainerDescription = styled.div`
     display: flex;
-    max-width: 300px;
+    max-width: 400px;
     flex-direction: column;
     align-self: center;
 

@@ -1,3 +1,4 @@
+import { LogoutOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
 export const Button = styled.a`
@@ -33,4 +34,9 @@ export const Text = styled.p`
     @media screen and (min-width: 300px) and (max-width: 640px) {
         font-size: 14px;
   }
+`
+
+export const Logout = styled(LogoutOutlined)`
+  color: #fff;
+  font-size: 24px;
 `

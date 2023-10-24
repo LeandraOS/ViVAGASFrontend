@@ -7,11 +7,11 @@ import Popper from '@mui/material/Popper'
 import MenuList from '@mui/material/MenuList'
 import { FileOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { ContainerMenu, Name, ProfilePict } from './styles'
-
-
+import { useContext } from 'react'
+import { AuthGoogleContext } from '../../contexts/authGoogle'
 
 export function ProfileMenu(props) {
-  const { name, registros } = props
+  const { name, picture, registros } = props
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef(null)
 
@@ -38,6 +38,15 @@ export function ProfileMenu(props) {
       setOpen(false)
     }
   }
+  const { signed, signInGoogle, signOut } = useContext(AuthGoogleContext);
+
+  const handleButtonClick = () => {
+    if (signed) {
+      signOut();
+    } else {
+      signInGoogle();
+    }
+  };
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open)
@@ -63,7 +72,7 @@ export function ProfileMenu(props) {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <ProfilePict src='https://avatars.githubusercontent.com/u/50140771?s=400&u=2485e9a45b92b99b196ba3f9c1e233a4261de7f9&v=4'></ProfilePict>
+        <ProfilePict src={picture}></ProfilePict>
       </Button>
       <Popper
         open={open}
@@ -91,7 +100,7 @@ export function ProfileMenu(props) {
                   <Name>{name}</Name>
                   <ContainerMenu onClick={handleClose}><UserOutlined />Perfil</ContainerMenu>
                   <ContainerMenu onClick={handleClose}><FileOutlined />{registros}</ContainerMenu>
-                  <ContainerMenu onClick={handleClose}><LogoutOutlined />Sair</ContainerMenu>
+                  <ContainerMenu onClick={handleButtonClick}><LogoutOutlined />Sair</ContainerMenu>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

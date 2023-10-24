@@ -3,12 +3,14 @@ import { TitlePages } from '../../components/TitlePages/TitlePages';
 import { ContainerEmpty, Wrapper } from '../Registrations/styles';
 import { IsEmpty } from '../../components/IsEmpty/IsEmpty';
 import { CardSelect } from '../../components/CardDetails/CardSelect';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 export const Selections = () => {
   const isTrue = true; // Defina isso com base na sua lógica de condição
 
   return (
     <>
+      <BackButton />
       <TitlePages align="left" title="Minhas Seleções" margin="4rem" />
       {isTrue ? (
         <Wrapper>

@@ -11,21 +11,25 @@ import CadastroVagas from '../pages/CadastroVagas/CadastroVagas';
 import { Subscribers } from '../pages/Subscribers/Subscribers';
 import { AuthGoogleContext } from '../contexts/authGoogle';
 import { useContext } from 'react';
+import { Help } from '../assets/Help/Help';
 
 export const AppRoutes = () => {
   const { userType } = useContext(AuthGoogleContext);
+  console.log('userType:', userType);
 
-  return (
+  return userType ? ( // Verifique se userType está definido
     <Routes>
-      <Route path='/' element={<Home />} />
       <Route path='/vagas' element={<Vagas />} />
       <Route path='/detalhes' element={<Details />} />
+      <Route path='/ajuda' element={<Help />} />
 
-      {/* Verifica se o usuário é um aluno para permitir o acesso */}
+
+      {/* Verifica se o usuário é um aluno para permitir o acesso a estas rotas */}
       {userType === 'aluno' && (
         <>
           <Route path='/cadastro-aluno' element={<CadastroAluno />} />
-          <Route path='/ajuda' element={<HelpModal />} />
+          <Route path='/inscricoes' element={<Registrations />} />
+
         </>
       )}
 
@@ -33,12 +37,10 @@ export const AppRoutes = () => {
       {userType === 'professor' && (
         <>
           <Route path='/cadastro-vaga' element={<CadastroVagas />} />
+          <Route path='/selecoes' element={<Selections />} />
+          <Route path='/inscritos' element={<Subscribers />} />
         </>
       )}
-
-      <Route path='/inscricoes' element={<Registrations />} />
-      <Route path='/selecoes' element={<Selections />} />
-      <Route path='/inscritos' element={<Subscribers />} />
 
       {/* Adicionando um botão para ir para a página de cadastro */}
       <Route
@@ -54,10 +56,7 @@ export const AppRoutes = () => {
       />
 
       {/* Redireciona para a página inicial se o usuário não tiver permissão para acessar */}
-      <Route
-        path='*'
-        element={<Navigate to='/' />}
-      />
+      <Route path='*' element={<Navigate to='/' />} />
     </Routes>
-  );
+  ) : null; // Renderize null se userType não estiver definido
 };

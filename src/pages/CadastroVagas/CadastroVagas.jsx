@@ -2,6 +2,7 @@ import React from 'react'
 import { Paragraph } from '../../components/Paragraph/Paragraph'
 import { Container } from './styles'
 import { FormsVagas } from '../../components/FormsVaga/FormsVaga'
+import { BackButton } from '../../components/BackButton/BackButton'
 
 const onFinish = (values) => {
   // Validação bem-sucedida, você pode enviar os dados para a API aqui.
@@ -16,11 +17,13 @@ export const CadastroVagas = () => {
     Após isso, é necessário que esse link do seu formulário (público) seja repassado para o ViVAGAS para que as informações possam ser repassadas para a aplicação.
   `
   return (
-    <Container>
-      <Paragraph text={textoExemplo} />
-      <FormsVagas onFinish={onFinish} />
-
-    </Container>
+    <>
+      <BackButton />
+      <Container>
+        <Paragraph text={textoExemplo} />
+        <FormsVagas onFinish={onFinish} />
+      </Container>
+    </>
   )
 }
 

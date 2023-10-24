@@ -1,14 +1,33 @@
-import React from 'react'
-import { Container, LinksContainer, Links } from './styles'
-import { LogoViVagas } from '../../assets/Logo/Logo'
-import { ButtonCustom } from '../Button/Button'
-import { Link } from 'react-router-dom'; // Importe o Link
+import React, { useContext } from 'react';
+import { Container, LinksContainer, Links } from './styles';
+import { LogoViVagas } from '../../assets/Logo/Logo';
+import { Link } from 'react-router-dom';
+import { ButtonLogin } from '../ButtonLogin/ButtonLogin';
+import { ProfileMenu } from '../ProfileMenu/ProfileMenu';
+import { AuthGoogleContext } from '../../contexts/authGoogle';
 
 export const AppBar = () => {
-  const pages = [
-    { title: 'Inscrições', url: '/inscricoes' }, // Atualize os URLs correspondentes
-    { title: 'Vagas', url: '/vagas' },
-  ]
+  const { signed, user, userType } = useContext(AuthGoogleContext);
+
+  // Defina as páginas com base no tipo de usuário
+  let pages;
+
+  if (userType === 'professor') {
+    pages = [
+      { title: 'Vagas', url: '/vagas' },
+      { title: 'Seleções', url: '/selecoes' },
+      { title: 'Inscritos', url: '/inscritos' },
+      { title: 'Cadastro Vagas', url: '/cadastro-vaga' },
+    ];
+  } else if (userType === 'aluno') {
+    pages = [
+      { title: 'Cadastro Aluno', url: '/cadastro-aluno' },
+      { title: 'Vagas', url: '/vagas' },
+      { title: 'Candidaturas', url: '/inscricoes' },
+    ];
+  } else {
+    pages = [];
+  }
 
   return (
     <Container>
@@ -19,10 +38,14 @@ export const AppBar = () => {
             <Link to={page.url}>{page.title}</Link>
           </Links>
         ))}
-        <ButtonCustom actived={true} text='Login' marginLeft='11.5rem' />
-        {/*<ProfileMenu name='Leandra Silva' registros='Candidaturas'></ProfileMenu>*/}
-
+        {signed ? (
+          // Renderize o ProfileMenu quando o usuário estiver logado
+          <ProfileMenu name={user.displayName} registros="Candidaturas" picture={user.photoURL} />
+        ) : (
+          // Renderize o botão de login quando o usuário não estiver logado
+          <ButtonLogin actived={true} text="Entrar" marginLeft="11.5rem" />
+        )}
       </LinksContainer>
     </Container>
-  )
-}
+  );
+};
