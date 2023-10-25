@@ -15,9 +15,8 @@ import { Help } from '../assets/Help/Help';
 
 export const AppRoutes = () => {
   const { userType } = useContext(AuthGoogleContext);
-  console.log('userType:', userType);
 
-  return userType ? ( // Verifique se userType está definido
+  return userType ? (
     <Routes>
       <Route path='/vagas' element={<Vagas />} />
       <Route path='/detalhes' element={<Details />} />

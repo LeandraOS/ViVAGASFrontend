@@ -41,13 +41,13 @@ export const AuthGoogleProvider = ({ children }) => {
           setUserType(userType);
           sessionStorage.setItem('@AuthFirebase:token', token);
           sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
+          navigate('/vagas'); // Redirecione para a página /vagas
         } else {
-          // Usuário com domínio não autorizado
           const confirmed = window.confirm('Domínio de e-mail não autorizado. Deseja fazer logout?');
           if (confirmed) {
             performLogout();
           } else {
-            alert('As vagas em projetos são destinadas aos alunos matriculados ou formados no curso de Ciência da Computação na UFCG. E estes, possuem o email institucional(@ccc, @copins ou @computacao), sendo assim, para realizar o login e acessar o sistema, faça login com o google usando esse email.');
+            alert('As vagas em projetos são destinadas aos alunos matriculados ou formados no curso de Ciência da Computação na UFCG. E estes, possuem o email institucional (@ccc, @copins ou @computacao). Portanto, faça login com o Google usando esse email.');
           }
         }
       })
@@ -69,16 +69,15 @@ export const AuthGoogleProvider = ({ children }) => {
         sessionStorage.clear();
         setUser(null);
         setUserType(null);
-        navigate('/'); // Redireciona para a página inicial
+        navigate('/'); // Redirecione para a página inicial
       })
       .catch((error) => {
         console.error('Erro ao fazer logout:', error);
       });
   }
-  
 
   const getUserTypeFromEmail = (email) => {
-    const allowedDomains = ['bemobi', 'ccc', 'copins'];
+    const allowedDomains = ['bemobi', 'ccc', 'copins', 'computacao'];
     const domain = email.split('@')[1].split('.')[0];
 
     if (allowedDomains.includes(domain)) {
