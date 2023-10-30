@@ -77,7 +77,7 @@ export const AuthGoogleProvider = ({ children }) => {
   }
 
   const getUserTypeFromEmail = (email) => {
-    const allowedDomains = ['bemobi', 'ccc', 'copins', 'computacao'];
+    const allowedDomains = ['bemobi', 'ccc', 'copins'];
     const domain = email.split('@')[1].split('.')[0];
 
     if (allowedDomains.includes(domain)) {

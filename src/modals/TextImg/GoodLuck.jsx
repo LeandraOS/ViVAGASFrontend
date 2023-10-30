@@ -35,7 +35,7 @@ export function GoodLuck({ text }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       closeModal();
-    }, 3000); 
+    }, 3500); 
 
     return () => {
       clearTimeout(timer);

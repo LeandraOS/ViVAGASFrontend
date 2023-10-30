@@ -3,6 +3,7 @@ import { Paragraph } from '../../components/Paragraph/Paragraph'
 import { Container } from './styles'
 import { FormsVagas } from '../../components/FormsVaga/FormsVaga'
 import { BackButton } from '../../components/BackButton/BackButton'
+import { TitlePages } from '../../components/TitlePages/TitlePages'
 
 const onFinish = (values) => {
   // Validação bem-sucedida, você pode enviar os dados para a API aqui.
@@ -20,6 +21,7 @@ export const CadastroVagas = () => {
     <>
       <BackButton />
       <Container>
+        <TitlePages title="Formulário de Vaga" />
         <Paragraph text={textoExemplo} />
         <FormsVagas onFinish={onFinish} />
       </Container>

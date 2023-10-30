@@ -264,7 +264,7 @@ const FormComponent = ({ onFinish }) => {
   
         const docRef = await addDoc(collection(db, 'aluno'), dataToSave);
         console.log('Documento adicionado com ID: ', docRef);
-        localStorage.setItem('cadastroRealizado', 'true');
+        localStorage.setItem('cadastroRealizadoAluno', 'true');
         setIsSuccess(true);
         showSuccessModal();
       } else {
@@ -645,7 +645,7 @@ const FormComponent = ({ onFinish }) => {
           </StyledFormItem>
 
           <ContainerButton>
-            <ButtonCustom actived={true} text="Enviar" type="primary" htmlType="submit">
+            <ButtonCustom actived={true} text="Enviar" type="primary" htmlType="submit" onClick={handleSubmit}>
           Enviar
             </ButtonCustom>
           </ContainerButton>

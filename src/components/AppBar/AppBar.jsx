@@ -10,7 +10,9 @@ export const AppBar = () => {
   const { signed, user, userType } = useContext(AuthGoogleContext);
   
   // Verifique se o cadastro já foi realizado no localStorage
-  const cadastroRealizado = localStorage.getItem('cadastroRealizado') === 'true';
+  const cadastroRealizadoAluno = localStorage.getItem('cadastroRealizadoAluno') === 'true';
+  const cadastroRealizadoVaga= localStorage.getItem('cadastroRealizadoVaga') === 'true';
+
 
   // Defina as páginas com base no tipo de usuário
   let pages;
@@ -20,11 +22,14 @@ export const AppBar = () => {
       { title: 'Vagas', url: '/vagas' },
       { title: 'Seleções', url: '/selecoes' },
       { title: 'Inscritos', url: '/inscritos' },
-      { title: 'Cadastro Vagas', url: '/cadastro-vaga' },
     ];
+    
+    if (!cadastroRealizadoVaga) {
+      // Adicione o link "Cadastro Vaga" apenas se o cadastro não tiver sido realizado
+      pages.push({ title: 'Cadastro Vagas', url: '/cadastro-vaga' });
+    }
   } else if (userType === 'aluno') {
-    // Remova o link "Cadastro Aluno" se o cadastro já foi realizado
-    if (!cadastroRealizado) {
+    if (!cadastroRealizadoAluno) {
       pages = [
         { title: 'Cadastro Aluno', url: '/cadastro-aluno' },
         { title: 'Vagas', url: '/vagas' },
