@@ -1,4 +1,5 @@
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Registrations } from '../pages/Registrations/Registrations';
 import { Home } from '../pages/Home/Home';
 import { Vagas } from '../pages/Vacancy/Vagas';
@@ -10,11 +11,13 @@ import { CadastroAluno } from '../pages/CadastroAluno/CadastroAluno';
 import CadastroVagas from '../pages/CadastroVagas/CadastroVagas';
 import { Subscribers } from '../pages/Subscribers/Subscribers';
 import { AuthGoogleContext } from '../contexts/authGoogle';
-import { useContext } from 'react';
 import { Help } from '../assets/Help/Help';
 
 export const AppRoutes = () => {
   const { userType } = useContext(AuthGoogleContext);
+  const navigate = useNavigate();
+  
+  const cadastroRealizado = localStorage.getItem('cadastroRealizado') === 'true';
 
   return userType ? (
     <Routes>
@@ -22,17 +25,17 @@ export const AppRoutes = () => {
       <Route path='/detalhes' element={<Details />} />
       <Route path='/ajuda' element={<Help />} />
 
-
-      {/* Verifica se o usuário é um aluno para permitir o acesso a estas rotas */}
       {userType === 'aluno' && (
         <>
-          <Route path='/cadastro-aluno' element={<CadastroAluno />} />
+          {cadastroRealizado ? (
+            <Route path='/cadastro-aluno' element={<Navigate to='/inscricoes' />} />
+          ) : (
+            <Route path='/cadastro-aluno' element={<CadastroAluno />} />
+          )}
           <Route path='/inscricoes' element={<Registrations />} />
-
         </>
       )}
 
-      {/* Verifica se o usuário é um professor para restringir o acesso ao cadastro de aluno */}
       {userType === 'professor' && (
         <>
           <Route path='/cadastro-vaga' element={<CadastroVagas />} />
@@ -41,7 +44,6 @@ export const AppRoutes = () => {
         </>
       )}
 
-      {/* Adicionando um botão para ir para a página de cadastro */}
       <Route
         path='/forms2'
         element={
@@ -54,8 +56,7 @@ export const AppRoutes = () => {
         }
       />
 
-      {/* Redireciona para a página inicial se o usuário não tiver permissão para acessar */}
       <Route path='*' element={<Navigate to='/' />} />
     </Routes>
-  ) : null; // Renderize null se userType não estiver definido
+  ) : null; 
 };

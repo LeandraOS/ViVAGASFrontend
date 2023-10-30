@@ -8,6 +8,9 @@ import { AuthGoogleContext } from '../../contexts/authGoogle';
 
 export const AppBar = () => {
   const { signed, user, userType } = useContext(AuthGoogleContext);
+  
+  // Verifique se o cadastro já foi realizado no localStorage
+  const cadastroRealizado = localStorage.getItem('cadastroRealizado') === 'true';
 
   // Defina as páginas com base no tipo de usuário
   let pages;
@@ -20,11 +23,19 @@ export const AppBar = () => {
       { title: 'Cadastro Vagas', url: '/cadastro-vaga' },
     ];
   } else if (userType === 'aluno') {
-    pages = [
-      { title: 'Cadastro Aluno', url: '/cadastro-aluno' },
-      { title: 'Vagas', url: '/vagas' },
-      { title: 'Candidaturas', url: '/inscricoes' },
-    ];
+    // Remova o link "Cadastro Aluno" se o cadastro já foi realizado
+    if (!cadastroRealizado) {
+      pages = [
+        { title: 'Cadastro Aluno', url: '/cadastro-aluno' },
+        { title: 'Vagas', url: '/vagas' },
+        { title: 'Candidaturas', url: '/inscricoes' },
+      ];
+    } else {
+      pages = [
+        { title: 'Vagas', url: '/vagas' },
+        { title: 'Candidaturas', url: '/inscricoes' },
+      ];
+    }
   } else {
     pages = [];
   }

@@ -1,12 +1,9 @@
 
 import React, { useEffect } from 'react'
 import { Container, IconX, OutContainer, Text, TextContainer } from './styles'
-import { ButtonCustom } from '../../components/Button/Button'
 import { Learning } from '../../assets/Woman/Learning'
 import { useNavigate } from 'react-router-dom';
 import { ButtonLogin } from '../../components/ButtonLogin/ButtonLogin';
-
-
 
 export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, widthText, padding, margin }) => {
   const navigate = useNavigate();
@@ -55,11 +52,3 @@ export const HelpModal = () =>{
       justify="left" widthText="20rem" padding="2rem" margin="0" />
   )
 }
-/*      <TextImg
-        iconComponent={<Check />}
-        textSize={'18px'}
-        buttonText="Conhecer vagas"
-        text="Cadastro realizado com sucesso!"
-        justify={false} widthText={'150px'} />
-    </>
-    */

@@ -48,6 +48,12 @@ export const StyledUploadContainer = styled.div`
   border-color: ${(props) => (props.isDragActive ? 'green' : '#8FC9FC')};
 `;
 
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const UploadText = styled.p`
   color: #2878BE;
   margin-bottom: 10px;
