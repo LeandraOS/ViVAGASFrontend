@@ -1,49 +1,88 @@
-import React from 'react';
-import { Card, ContainerDescription, Date, Description, LinkDetails, Title, TitlePoint, Wrapper, WrapperButtons } from './styles';
+import React, { useContext } from 'react';
+import { Card, ContainerDescription, DateStyled, Description, LinkDetails, Title, TitlePoint, Wrapper, WrapperButtons } from './styles';
 import { Tag } from '../Tag/Tag';
 import { ButtonCustom } from '../Button/Button';
 import { Link } from 'react-router-dom';
+import { AuthGoogleContext } from '../../contexts/authGoogle';
+import { db } from '../../services/firebaseConfig';
+import { getDoc, doc, collection, addDoc } from 'firebase/firestore';
 
 export const CardProject = ({ data }) => {
-  const { title, description, areas, technologies, startDate, active, level, laboratory } = data;
+  const { signed, user } = useContext(AuthGoogleContext);
+
+  const formatarData = (data) => {
+    const dataFormatada = new Date(data);
+    const dia = dataFormatada.getDate().toString().padStart(2, '0');
+    const mes = (dataFormatada.getMonth() + 1).toString().padStart(2, '0');
+    const ano = dataFormatada.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  };
+
+  const handleApply = async () => {
+    if (signed) {
+      console.log('Função handleApply chamada.'); 
+
+      const inscriptionData = {
+        id_aluno: user.uid, 
+        status: 'active', 
+      };
+
+      const userDoc = await getDoc(doc(db, 'aluno', user.uid));
+      if (userDoc.exists() && userDoc.data().dadosEnviados) {
+        const inscricoesRef = collection(db, 'inscricao'); 
+        await addDoc(inscricoesRef, inscriptionData);
+  
+        console.log('Inscrição salva com sucesso.'); 
+      } else {
+        console.log('Erro: usuário não enviou dados de cadastro.'); 
+        alert('Você deve enviar seus dados de cadastro antes de se inscrever em uma vaga.');
+      }
+    } else {
+      console.log('Erro: usuário não autenticado.'); 
+      alert('Você precisa fazer login para se inscrever em uma vaga.');
+    }
+  };
 
   return (
-    <Card active={active}>
-      <Title>{title}</Title>
+    <Card active={true}>
+      <Title>{data.tituloProjeto}</Title>
       <ContainerDescription>
-        <Description>{description}</Description>
+        <Description>{data.descricaoProjeto}</Description>
       </ContainerDescription>
       <Wrapper>
         <TitlePoint>Áreas do projeto</TitlePoint>
-        {areas.map((area, index) => (
+        {data.areaVaga.map((area, index) => (
           <Tag key={index} text={area} />
         ))}
       </Wrapper>
+
       <Wrapper>
         <TitlePoint>Tecnologia(s)</TitlePoint>
-        {technologies.map((tech, index) => (
+        {data.tecnologias.map((tech, index) => (
           <Tag key={index} text={tech} />
         ))}
       </Wrapper>
+
       <Wrapper>
         <TitlePoint>Previsão de início(s)</TitlePoint>
-        <Date>{startDate}</Date>
+        <DateStyled>{formatarData(data.previsaoInicio)}</DateStyled>
       </Wrapper>
+
       <Wrapper>
         <TitlePoint>Nível da Vaga</TitlePoint>
-        <Tag text={level}/>
+        <Tag text={data.nivel} />
       </Wrapper>
       <Wrapper>
-        <TitlePoint>Laboratório</TitlePoint>
-        <Tag text={laboratory}/>
+        <TitlePoint>Laboratório(s)</TitlePoint>
+        {data.laboratorio.map((lab, index) => (
+          <Tag key={index} text={lab} />
+        ))}
       </Wrapper>
       <WrapperButtons>
         <Link to="/detalhes">
-          <LinkDetails active={active}>Detalhes</LinkDetails>
+          <LinkDetails active={true}>Detalhes</LinkDetails>
         </Link>
-        <Link to="/cadastro-aluno" style={{ textDecoration: 'none' }}>
-          <ButtonCustom text='Candidate-se' actived={active}></ButtonCustom>
-        </Link>
+        <ButtonCustom onClick={() => handleApply()} actived={true} text='Candidatar-se'/>
       </WrapperButtons>
     </Card>
   );

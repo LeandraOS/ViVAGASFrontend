@@ -118,7 +118,7 @@ export const LinkDetails = styled.a`
     transform: scale(1.02);
   }
 `
-export const Date = styled.p`
+export const DateStyled = styled.p`
     color: #2878BE;
     font-family: 'Inter', sans-serif;
     font-size: 12px;

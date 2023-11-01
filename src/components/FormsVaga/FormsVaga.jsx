@@ -52,6 +52,55 @@ export const FormsVagas = ({ onFinish }) => {
     'remoto'
   ]
 
+  const tecnologias = [
+    'JavaScript',
+    'Python',
+    'Java',
+    'C#',
+    'Ruby',
+    'Swift',
+    'Kotlin',
+    'PHP',
+    'HTML/CSS',
+    'SQL',
+    'React',
+    'Node.js',
+    'Angular',
+    'Vue.js',
+    'Django',
+    'Ruby on Rails',
+    'ASP.NET',
+    'Spring Boot',
+    'Express.js',
+    'MongoDB',
+    'MySQL',
+    'PostgreSQL',
+    'AWS',
+    'Azure',
+    'Docker',
+    'Kubernetes',
+    'Machine Learning',
+    'Deep Learning',
+    'DevOps',
+    'Blockchain'
+  ]
+
+  const nivel = [
+    'Iniciante',
+    'Intermediário',
+    'Avançado'
+  ]
+
+  const laboratorios = [
+    'SPLAB',
+    'LSD',
+    'LIAD',
+    'VIRTUS',
+    'LMD',
+    'LACINA',
+    'LABARC'
+  ]
+
   const softSkillsOptions = ['Habilidade de Comunicação', 'Trabalho em Equipe', 'Resolução de Problemas', 'Liderança'];
   const requisitosFormais = ['Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG', 'CRA igual ou superior a 6,0 (seis)'];
 
@@ -63,10 +112,14 @@ export const FormsVagas = ({ onFinish }) => {
     return storedData
       ? JSON.parse(storedData)
       : {
+        idVaga: '',
         tituloProjeto: '',
         descricaoProjeto: '',
         softSkills: [],
         areaVaga: [],
+        tecnologias: [],
+        nivel: '',
+        laboratorio: '',
         requisitosFormais: [],
         bolsaValorGrad: '',
         cargaHorariaGrad: '',
@@ -80,6 +133,7 @@ export const FormsVagas = ({ onFinish }) => {
         fechamentoInsc: '',
         entrevistas: '',
         resultado: '',
+        previsaoInicio: '',
         emailAprovado: '',
         emailNaoAprovado: '',
         observacoes: '',
@@ -132,8 +186,6 @@ export const FormsVagas = ({ onFinish }) => {
     }
   };
   
-  
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -256,6 +308,62 @@ export const FormsVagas = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
+          <TextLabel>Tecnologias:</TextLabel>
+          <Form.Item
+            name="tecnologias"
+            rules={[
+              {
+                required: true,
+                message: 'Por favor, insira as tecnologias.',
+              },
+            ]}
+          >
+            <Select mode="multiple" placeholder="Selecione as tecnologias" onChange={(value) => handleSelectChange('tecnologias', value)}>
+              {tecnologias.map((tecs, index) => (
+                <Option key={index} value={tecs}>
+                  {tecs}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <TextLabel>Nível:</TextLabel>
+          <Form.Item
+            name="nivel"
+            rules={[
+              {
+                required: true,
+                message: 'Por favor, insira o nível da vaga.',
+              },
+            ]}
+          >
+            <Select mode="multiple" placeholder="Selecione o nível da vaga" onChange={(value) => handleSelectChange('nivel', value)}>
+              {nivel.map((nivel, index) => (
+                <Option key={index} value={nivel}>
+                  {nivel}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <TextLabel>Laboratório:</TextLabel>
+          <Form.Item
+            name="laboratorio"
+            rules={[
+              {
+                required: true,
+                message: 'Por favor, insira o laboratório.',
+              },
+            ]}
+          >
+            <Select mode="multiple" placeholder="Selecione o laboratório" onChange={(value) => handleSelectChange('laboratorio', value)}>
+              {laboratorios.map((lab, index) => (
+                <Option key={index} value={lab}>
+                  {lab}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
           <DestaqueTextLabel color='#2878BE'>Informações Administrativas para Graduação:</DestaqueTextLabel>
           <RowInputs>
             <Col span={5}>
@@ -359,9 +467,8 @@ export const FormsVagas = ({ onFinish }) => {
             </Col>
           </RowInputs>
 
-
           <TextLabel margin='12px'>Cronograma:</TextLabel>
-          <RowInputs gap='1.2rem'>
+          <RowInputs gap='1.5rem'>
             <Col span={6}>
               <TextLabel>Abertura de inscrições:</TextLabel>
               <Form.Item name="aberturaInsc">
@@ -372,7 +479,7 @@ export const FormsVagas = ({ onFinish }) => {
                 />
               </Form.Item>
             </Col>
-            <Col span={5.5}>
+            <Col span={6}>
               <TextLabel>Término de inscrições:</TextLabel>
               <Form.Item name="fechamentoInsc">
                 <Input
@@ -383,7 +490,7 @@ export const FormsVagas = ({ onFinish }) => {
                 />
               </Form.Item>
             </Col>
-            <Col span={5}>
+            <Col span={6}>
               <TextLabel>Entrevistas:</TextLabel>
               <Form.Item name="entrevistas">
                 <Input
@@ -393,14 +500,26 @@ export const FormsVagas = ({ onFinish }) => {
                 />
               </Form.Item>
             </Col>
-          
-            <Col span={5}>
+          </RowInputs>
+          <RowInputs>
+            <Col span={6}>
               <TextLabel>Resultado:</TextLabel>
               <Form.Item name="resultado">
                 <Input
                   type='date'
                   value={formData.duracaoMesesGrad}
                   onChange={(e) => handleInputChange('resultado', e.target.value)}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={6}>
+              <TextLabel>Previsão de inicio:</TextLabel>
+              <Form.Item name="previsaoInicio">
+                <Input
+                  type='date'
+                  value={formData.previsaoInicio}
+                  onChange={(e) => handleInputChange('previsaoInicio', e.target.value)}
                 />
               </Form.Item>
             </Col>

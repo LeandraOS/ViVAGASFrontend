@@ -6,7 +6,6 @@ import { BackButton } from '../../components/BackButton/BackButton'
 import { TitlePages } from '../../components/TitlePages/TitlePages'
 
 const onFinish = (values) => {
-  // Validação bem-sucedida, você pode enviar os dados para a API aqui.
   console.log('Valores enviados:', values);
 };
 

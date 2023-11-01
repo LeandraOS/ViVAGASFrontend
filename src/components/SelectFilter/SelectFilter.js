@@ -1,36 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, Tag } from 'antd';
 import { Label, Wrapper } from './styles';
 
 const categories = {
-  tecnologias: ['Todas', 'React', 'Angular', 'Vue', 'Node.js', 'Python', 'Java', 'C#', 'Ruby', 'PHP', 'Swift'],
-  laboratorios: ['Todas', 'splab', 'lsd', 'lacina'],
-  areas: ['Todas', 'Frontend', 'Backend', 'Mobile', 'Data Science', 'DevOps', 'UX/UI'],
-  niveis: ['Todas', 'Iniciante', 'Intermediário', 'Avançado'],
+  tecnologias: ['React', 'Angular', 'Vue', 'Node.js', 'Python', 'Java', 'C#', 'Ruby', 'PHP', 'Swift'],
+  laboratorio: ['SPLAB', 'LSD', 'lacina'],
+  areaVaga: ['Frontend', 'Backend', 'Mobile', 'Data Science', 'DevOps', 'UX/UI'],
+  nivel: ['Iniciante', 'Intermediário', 'Avançado'],
 };
 
 export const SelectFilter = ({ onFilterChange }) => {
   const [selectedFilters, setSelectedFilters] = useState({
-    vagas: [],
     tecnologias: [],
-    laboratorios: [],
-    areas: [],
-    niveis: [],
+    laboratorio: [],
+    areaVaga: [],
+    nivel: [],
   });
 
   const handleChange = (key, values) => {
-    const lowercasedValues = values.map(value => value.toLowerCase());
-    setSelectedFilters({ ...selectedFilters, [key]: lowercasedValues });
-    onFilterChange({ ...selectedFilters, [key]: lowercasedValues });
-  };
+    const updatedFilters = { ...selectedFilters, [key]: values };
+    setSelectedFilters(updatedFilters);
 
-  const handleFilterChange = (key, values) => {
-    if (values.includes('Todas')) {
-      // Se "Todas" estiver selecionada, limpe o filtro
-      handleChange(key, []);
-    } else {
-      handleChange(key, values);
-    }
+    onFilterChange(updatedFilters);
   };
 
   const tagRender = (props) => {
@@ -67,7 +58,7 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={(value) => handleFilterChange('tecnologias', value)}
+          onChange={(value) => handleChange('tecnologias', value)}
           tagRender={tagRender}
           options={categories.tecnologias.map((option) => ({
             label: option,
@@ -83,9 +74,9 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={(value) => handleFilterChange('laboratorios', value)}
+          onChange={(value) => handleChange('laboratorio', value)}
           tagRender={tagRender}
-          options={categories.laboratorios.map((option) => ({
+          options={categories.laboratorio.map((option) => ({
             label: option,
             value: option,
           }))}
@@ -99,9 +90,9 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={(value) => handleFilterChange('areas', value)}
+          onChange={(value) => handleChange('areaVaga', value)}
           tagRender={tagRender}
-          options={categories.areas.map((option) => ({
+          options={categories.areaVaga.map((option) => ({
             label: option,
             value: option,
           }))}
@@ -115,9 +106,9 @@ export const SelectFilter = ({ onFilterChange }) => {
             width: '20%',
           }}
           placeholder="Selecione"
-          onChange={(value) => handleFilterChange('niveis', value)}
+          onChange={(value) => handleChange('nivel', value)}
           tagRender={tagRender}
-          options={categories.niveis.map((option) => ({
+          options={categories.nivel.map((option) => ({
             label: option,
             value: option,
           }))}

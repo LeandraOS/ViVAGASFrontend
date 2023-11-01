@@ -4,13 +4,14 @@ import { LoadingContainer, StyledFormItem, ContainerButton, StyledUploadContaine
 import { useDropzone } from 'react-dropzone';
 import { TextLabel } from './TextLabel';
 import { CheckForms } from '../../assets/CheckForms/CheckForms';
-import { getFirestore, addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { EyeOutlined, CloseOutlined } from '@ant-design/icons';
 import { ButtonCustom } from '../Button/Button';
 import { db, storage } from '../../services/firebaseConfig';
 import { GoodLuck } from '../../modals/TextImg/GoodLuck';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 const { Option } = Select;
 
@@ -111,7 +112,7 @@ const FormComponent = ({ onFinish }) => {
   
         const certificadoURL = await uploadFileToFirebaseStorage(formData.uploadedCertificado);
         const historicoURL = await uploadFileToFirebaseStorage(formData.uploadedHistorico);
-        const studentDocRef = doc(db, 'alunos', user.uid); 
+        const studentDocRef = doc(db, 'aluno', user.uid); 
         const studentData = {
           name: formData.name,
           registration: formData.registration,
@@ -263,6 +264,9 @@ const FormComponent = ({ onFinish }) => {
         };
   
         const docRef = await addDoc(collection(db, 'aluno'), dataToSave);
+        await updateDoc(doc(db, 'aluno', auth.currentUser.uid), {
+          dadosEnviados: true,
+        });
         console.log('Documento adicionado com ID: ', docRef);
         localStorage.setItem('cadastroRealizadoAluno', 'true');
         setIsSuccess(true);
