@@ -40,7 +40,7 @@ export const Home = () => {
   return (
     <Wrapper>
       <TitleWelcome />
-      <SubTitle text={'Faça login com a sua conta @ccc, @copins ou @computacao para acessar nossa plataforma.'} />
+      <SubTitle text={'Reunimos em um só lugar as diversas seleções para projetos do curso de Ciência da Computação na UFCG.'} />
       <ButtonGoogle />
       <Link to="/ajuda" style={{ textDecoration: 'none' }}>
         <Help />

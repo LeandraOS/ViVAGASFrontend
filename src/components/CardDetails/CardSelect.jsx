@@ -19,6 +19,7 @@ export const CardSelect = ({ title, initialValue }) => {
     setAge(selectedValue);
   };
 
+
   return (
     <Link to="/inscritos" style={{textDecoration: 'none'}}>
       <CardTags>

@@ -24,7 +24,6 @@ export const Vagas = () => {
       const vagasCollection = collection(db, 'vaga');
       let q = query(vagasCollection);
 
-      // Aplicar filtros, se houver algum selecionado
       if (selectedFilters.tecnologias.length > 0) {
         q = query(q, where('tecnologias', 'array-contains-any', selectedFilters.tecnologias));
       }

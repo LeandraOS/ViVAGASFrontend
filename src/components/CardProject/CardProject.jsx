@@ -23,13 +23,16 @@ export const CardProject = ({ data }) => {
       console.log('Função handleApply chamada.'); 
 
       const inscriptionData = {
-        id_aluno: user.uid, 
+        idAluno: user.uid, 
+        idVaga: data.id,
         status: 'active', 
       };
+
 
       const userDoc = await getDoc(doc(db, 'aluno', user.uid));
       if (userDoc.exists() && userDoc.data().dadosEnviados) {
         const inscricoesRef = collection(db, 'inscricao'); 
+
         await addDoc(inscricoesRef, inscriptionData);
   
         console.log('Inscrição salva com sucesso.'); 
@@ -70,7 +73,10 @@ export const CardProject = ({ data }) => {
 
       <Wrapper>
         <TitlePoint>Nível da Vaga</TitlePoint>
-        <Tag text={data.nivel} />
+        {data.nivel.map((nivel, index) =>(
+          <Tag key={index} text={nivel} />
+
+        ))}
       </Wrapper>
       <Wrapper>
         <TitlePoint>Laboratório(s)</TitlePoint>
@@ -82,7 +88,7 @@ export const CardProject = ({ data }) => {
         <Link to="/detalhes">
           <LinkDetails active={true}>Detalhes</LinkDetails>
         </Link>
-        <ButtonCustom onClick={() => handleApply()} actived={true} text='Candidatar-se'/>
+        <ButtonCustom onClick={() => handleApply(data.idVaga)} actived={true} text='Candidatar-se'/>
       </WrapperButtons>
     </Card>
   );

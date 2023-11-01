@@ -34,8 +34,9 @@ export const Details = () => {
           items={[
             'Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG;',
             'CRA igual ou superior a 6,0 (seis).',
+            'Ter cursado a disciplina Estrutura de Dados e Algoritmos'
           ]}
-          numberOfItemsToRender={2} // Especifique o número de itens a serem renderizados
+          numberOfItemsToRender={3} 
         />
         <CardInfosAdm />
         <Calendar />
@@ -47,7 +48,7 @@ export const Details = () => {
             'fabio@computacao.ufcg.edu.br',
             'temmanuel@computacao.ufcg.edu.br',
           ]}
-          numberOfItemsToRender={3} // Especifique o número de itens a serem renderizados
+          numberOfItemsToRender={3} 
         />
         <CardLists
           icon={IconObs}
@@ -55,7 +56,7 @@ export const Details = () => {
           items={[
             'Atenção. Todas as comunicações serão feitas exclusivamente por email e para todas as pessoas inscritas. Portanto, não há necessidade de enviar mensagem consultando o andamento do processo.'
           ]}
-          numberOfItemsToRender={1} // Obtenha o comprimento do array 'items'
+          numberOfItemsToRender={1}
         />
       </Wrapper>
     </>

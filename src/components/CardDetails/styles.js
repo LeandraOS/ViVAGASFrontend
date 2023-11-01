@@ -8,13 +8,13 @@ export const Card = styled.div`
   flex-direction: column;
   padding: 2rem;
   gap: 0.75rem;
-  width: ${({ width }) => width || '275px'}; /* Use a prop width ou '275px' como valor padrão */
+  width: ${({ width }) => width || '275px'}; 
   min-height: fit-content;
   border-radius: 6px;
   background: #DCEEFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
-  margin-bottom: ${({ marginBottom }) => marginBottom || '0'}; /* Use a prop width ou '275px' como valor padrão */
+  margin-bottom: ${({ marginBottom }) => marginBottom || '0'};
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
     padding: 1.5rem;

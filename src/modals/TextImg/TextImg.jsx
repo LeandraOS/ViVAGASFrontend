@@ -13,7 +13,7 @@ export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, wi
   };
 
   const closeModal = () => {
-    navigate(-1); // Volte para a página anterior
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -23,10 +23,8 @@ export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, wi
       }
     };
 
-    // Adicione um ouvinte de evento para a tecla Esc
     window.addEventListener('keydown', handleKeyDown);
 
-    // Remova o ouvinte de evento quando o componente for desmontado
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -48,7 +46,7 @@ export const TextImg = ({ iconComponent, textSize, buttonText, text, justify, wi
 
 export const HelpModal = () =>{
   return(
-    <TextImg iconComponent={<Learning />} textSize="14px" buttonText="Login" text="As vagas em projetos são destinadas aos alunos matriculados ou formados no curso de Ciência da Computação na UFCG. E estes, possuem o email institucional, sendo assim, para realizar o login e acessar o sistema, faça login com o google usando esse email."
+    <TextImg iconComponent={<Learning />} textSize="14px" buttonText="Login" text="As vagas em projetos são destinadas aos alunos matriculados ou formados no curso de Ciência da Computação na UFCG. E estes, possuem o email institucional, faça login com a sua conta @ccc, @copins ou @computacao para acessar nossa plataforma."
       justify="left" widthText="20rem" padding="2rem" margin="0" />
   )
 }
