@@ -1,22 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TitlePages } from '../../components/TitlePages/TitlePages';
 import { ContainerEmpty, Wrapper } from '../Registrations/styles';
 import { IsEmpty } from '../../components/IsEmpty/IsEmpty';
 import { CardSelect } from '../../components/CardDetails/CardSelect';
 import { BackButton } from '../../components/BackButton/BackButton';
+import { AuthGoogleContext } from '../../contexts/authGoogle';
+import { db } from '../../services/firebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
 
 export const Selections = () => {
-  const isTrue = true; // Defina isso com base na sua lógica de condição
+  const [userVagas, setUserVagas] = useState([]);
+  const { signed, user } = useContext(AuthGoogleContext);
+
+  useEffect(() => {
+    if (signed && user) {
+      const vagasCollection = collection(db, 'vaga');
+      const q = query(vagasCollection, where('userId', '==', user.uid));
+
+      getDocs(q)
+        .then((querySnapshot) => {
+          const userVagasData = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            userVagasData.push({ id: doc.id, ...data });
+          });
+          setUserVagas(userVagasData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar as vagas do usuário:', error);
+        });
+    }
+  }, [user]);
 
   return (
     <>
       <BackButton />
       <TitlePages align="left" title="Minhas Seleções" margin="4rem" />
-      {isTrue ? (
+      {userVagas.length > 0 ? (
         <Wrapper>
-          <CardSelect title="Card 1" initialValue="10" />
-          <CardSelect title="Card 2" initialValue="20" />
-          <CardSelect title="Card 3" initialValue="30" />
+          {userVagas.map((vaga) => (
+            <CardSelect key={vaga.id} title={vaga.tituloProjeto} initialValue='Ativa' />
+          ))}
         </Wrapper>
       ) : (
         <ContainerEmpty>

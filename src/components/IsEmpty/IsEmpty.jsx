@@ -1,11 +1,11 @@
 import React from 'react'
 import { Empty, Text, Wrapper } from './styles'
 
-export const IsEmpty = () => {
+export const IsEmpty = ({text}) => {
   return (
     <Wrapper>
       <Empty />
-      <Text>Por enquanto... nenhuma inscrição</Text>
+      <Text>{text}</Text>
     </Wrapper>
   )
 }

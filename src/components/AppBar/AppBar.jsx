@@ -21,7 +21,6 @@ export const AppBar = () => {
     pages = [
       { title: 'Vagas', url: '/vagas' },
       { title: 'Seleções', url: '/selecoes' },
-      { title: 'Inscritos', url: '/inscritos' },
     ];
     
     if (!cadastroRealizadoVaga) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CardTags, MenuCustom, Title, WrapperTitle } from './styles';
 import { Select } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const CardSelect = ({ title, initialValue }) => {
   const [age, setAge] = useState(() => {
@@ -19,33 +20,35 @@ export const CardSelect = ({ title, initialValue }) => {
   };
 
   return (
-    <CardTags>
-      <WrapperTitle>
-        <Title>{title}</Title>
-      </WrapperTitle>
-      <Select
-        sx={{
-          color: '#2086B6',
-          fontSize: '12px',
-          border: 'solid 1px #2086B6',
-          height: '36px',
-          '&:hover': {
-            '.MuiOutlinedInput-notchedOutline': {
-              borderColor: '#2086B6',
-            },
-          },
-          '& svg': {
+    <Link to="/inscritos" style={{textDecoration: 'none'}}>
+      <CardTags>
+        <WrapperTitle>
+          <Title>{title}</Title>
+        </WrapperTitle>
+        <Select
+          sx={{
             color: '#2086B6',
-          },
-        }}
-        value={age}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'Without label' }}
-      >
-        <MenuCustom value={10}>Ten</MenuCustom>
-        <MenuCustom value={20}>Twenty</MenuCustom>
-        <MenuCustom value={30}>Thirty</MenuCustom>
-      </Select>
-    </CardTags>
+            fontSize: '12px',
+            border: 'solid 1px #2086B6',
+            height: '36px',
+            '&:hover': {
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: '#2086B6',
+              },
+            },
+            '& svg': {
+              color: '#2086B6',
+            },
+          }}
+          value={age}
+          onChange={handleChange}
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+          <MenuCustom value={10}>Ativa</MenuCustom>
+          <MenuCustom value={20}>Congelada</MenuCustom>
+          <MenuCustom value={30}>Finalizada</MenuCustom>
+        </Select>
+      </CardTags>
+    </Link>
   );
 };

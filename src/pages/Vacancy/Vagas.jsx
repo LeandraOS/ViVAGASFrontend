@@ -6,6 +6,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
 import { SearchComponent } from '../../components/Input/InputSearch';
 import { SelectFilter } from '../../components/SelectFilter/SelectFilter';
+import { IsEmpty } from '../../components/IsEmpty/IsEmpty';
 
 export const Vagas = () => {
   const [projects, setProjects] = useState([]);
@@ -78,20 +79,18 @@ export const Vagas = () => {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <Spin size="large" />
       </div>
-    ) : (
-      <>
-        <SearchComponent onSearchTextChange={setSearchText} />
-        <SelectFilter onFilterChange={setSelectedFilters} />
+    ) : <>
+      <SearchComponent onSearchTextChange={setSearchText} />
+      <SelectFilter onFilterChange={setSelectedFilters} />
+      {projects.length > 0 ? (
         <Wrapper>
-          {projects && projects.length > 0 ? (
-            projects.map((project, index) => (
-              <CardProject key={project.id} data={project} />
-            ))
-          ) : (
-            <div>Nenhum projeto disponível.</div>
-          )}
+          {projects.map((project, index) => (
+            <CardProject key={project.id} data={project} />
+          ))}
         </Wrapper>
-      </>
-    )
-  );
+      ) : (
+        <IsEmpty text='Nenhum projeto encontrado...' />
+      )}
+    </>
+  )
 };

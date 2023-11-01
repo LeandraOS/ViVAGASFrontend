@@ -54,6 +54,7 @@ export const CardTags = styled.div`
   background: #DCEEFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
+  cursor: pointer;
 
   @media screen and (min-width: 300px) and (max-width: 640px) {
     padding: 1.5rem;
