@@ -9,9 +9,9 @@ export const CardRegistrations = ({ title }) => {
       <WrapperTitle>
         <Title>{title}</Title>
       </WrapperTitle>
-      <Tag text='Status: ENTREVISTA'></Tag>
+      <Tag text='Status: ANÁLISE DE CURRÍCULO'></Tag>
       <UnderlinedText>
-        <Date>Data de atualização: 13/09/2023</Date>
+        <Date>Data de atualização: --/--/--</Date>
       </UnderlinedText>
     </CardTags>
   )

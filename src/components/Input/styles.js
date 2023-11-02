@@ -9,7 +9,7 @@ export const SearchContainer = styled.div`
   border-radius: 8px;
   padding-left: 14px;
   margin-left: auto;
-  margin-top: 5rem;
+  margin-top: 2rem;
   margin-right: 2rem;
   width: 280px; 
   height: 2rem;

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom' // Importe o Link
 import Button from '@mui/material/Button'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Grow from '@mui/material/Grow'
@@ -98,8 +99,9 @@ export function ProfileMenu(props) {
                   onKeyDown={handleListKeyDown}
                 >
                   <Name>{name}</Name>
-                  <ContainerMenu onClick={handleClose}><UserOutlined />Perfil</ContainerMenu>
-                  <ContainerMenu onClick={handleClose}><FileOutlined />{registros}</ContainerMenu>
+                  <Link to="/inscricoes" style={{textDecoration: 'none', color: '#000000DE'}}> {/* Use o Link para a rota "/inscricoes" */}
+                    <ContainerMenu onClick={handleClose}><FileOutlined />Minhas Inscrições</ContainerMenu>
+                  </Link>
                   <ContainerMenu onClick={handleButtonClick}><LogoutOutlined />Sair</ContainerMenu>
                 </MenuList>
               </ClickAwayListener>

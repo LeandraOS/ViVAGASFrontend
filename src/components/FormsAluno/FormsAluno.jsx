@@ -32,7 +32,33 @@ const FormComponent = ({ onFinish }) => {
     'DevOps',
     'Análise de Dados',
     'Machine Learning',
+    'Gestão de Projetos',
+    'Segurança da Informação',
+    'Inteligência Artificial',
+    'Redes de Computadores',
+    'Banco de Dados',
+    'Desenvolvimento Mobile',
+    'Realidade Virtual',
+    'Ciência de Dados',
+    'Engenharia de Software',
+    'Sistemas Embarcados',
+    'Computação Gráfica',
+    'Arquitetura de Software',
+    'Sistemas Distribuídos',
+    'Cloud Computing',
+    'Internet das Coisas (IoT)',
+    'Web Design',
+    'Design de Experiência do Usuário (UX)',
+    'Bioinformática',
+    'Computação Quântica',
+    'Ética em Computação',
+    'Robótica',
+    'Aprendizado Profundo (Deep Learning)',
+    'Computação em Nuvem',
+    'Visão Computacional',
+    // Adicione outras áreas de interesse aqui
   ];
+  
 
   const generosOptions = [
     'Homem Cisgênero',
@@ -335,7 +361,7 @@ const FormComponent = ({ onFinish }) => {
           onFinishFailed={onFinishFailed}
           initialValues={formData}
         >
-          <TextLabel>Nome completo:</TextLabel>
+          <TextLabel>Nome completo: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="name"
             rules={[
@@ -348,7 +374,7 @@ const FormComponent = ({ onFinish }) => {
             <Input onChange={(e) => handleInputChange('name', e.target.value)} />
           </Form.Item>
 
-          <TextLabel>Matrícula:</TextLabel>
+          <TextLabel>Matrícula: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="registration"
             rules={[
@@ -358,10 +384,10 @@ const FormComponent = ({ onFinish }) => {
               },
               {
                 validator: (rule, value) => {
-                  if (value.length === 9) {
+                  if (value.length === 9 || value.length === 13) {
                     return Promise.resolve();
                   } else {
-                    return Promise.reject('A matrícula deve ter exatamente 9 caracteres.');
+                    return Promise.reject('A matrícula deve ter exatamente 9 ou 13 caracteres.');
                   }
                 },
               },
@@ -370,7 +396,7 @@ const FormComponent = ({ onFinish }) => {
             <Input onChange={(e) => handleInputChange('registration', e.target.value)} />
           </Form.Item>
 
-          <TextLabel>GitHub:</TextLabel>
+          <TextLabel>GitHub: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="github"
             rules={[
@@ -383,7 +409,7 @@ const FormComponent = ({ onFinish }) => {
             <Input onChange={(e) => handleInputChange('github', e.target.value)} />
           </Form.Item>
 
-          <TextLabel>LinkedIn:</TextLabel>
+          <TextLabel>LinkedIn: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="linkedin"
             rules={[
@@ -396,7 +422,7 @@ const FormComponent = ({ onFinish }) => {
             <Input onChange={(e) => handleInputChange('linkedin', e.target.value)} />
           </Form.Item>
 
-          <TextLabel>Valor do CRA:</TextLabel>
+          <TextLabel>Valor do CRA: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="cra"
             label=""
@@ -419,7 +445,7 @@ const FormComponent = ({ onFinish }) => {
             <Input type="number" step="0.01" min="0" max="10" onChange={(e) => handleInputChange('cra', e.target.value)}/>
           </Form.Item>
 
-          <TextLabel>Período de ingresso:</TextLabel>
+          <TextLabel>Período de ingresso: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="periodo"
             rules={[
@@ -438,7 +464,7 @@ const FormComponent = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
-          <TextLabel>Previsão de formatura:</TextLabel>
+          <TextLabel>Previsão de formatura: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="periodoFormatura"
             rules={[
@@ -457,7 +483,7 @@ const FormComponent = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
-          <TextLabel>Tipo de Aluno</TextLabel>
+          <TextLabel>Tipo de Aluno <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="tipoAluno"
             rules={[
@@ -477,7 +503,7 @@ const FormComponent = ({ onFinish }) => {
           </Form.Item>
 
 
-          <TextLabel>Áreas de Interesse:</TextLabel>
+          <TextLabel>Áreas de Interesse: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="areasInteresse"
             rules={[
@@ -502,7 +528,7 @@ const FormComponent = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
-          <TextLabel>Cor ou raça que se identifica:</TextLabel>
+          <TextLabel>Cor ou raça que se identifica: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="corRaca"
             rules={[
@@ -524,7 +550,7 @@ const FormComponent = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
-          <TextLabel>Gênero que se identifica:</TextLabel>
+          <TextLabel>Gênero que se identifica: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="genero"
             rules={[
@@ -546,7 +572,7 @@ const FormComponent = ({ onFinish }) => {
             </Select>
           </Form.Item>
 
-          <TextLabel>Orientação sexual:</TextLabel>
+          <TextLabel>Orientação sexual: <span style={{ color: 'red' }}>*</span></TextLabel>
           <Form.Item
             name="orientacaoSexual"
             rules={[
@@ -569,7 +595,7 @@ const FormComponent = ({ onFinish }) => {
           </Form.Item>
 
           <StyledFormItem >
-            <TextLabel>Certificado:</TextLabel>
+            <TextLabel>Currículo: <span style={{ color: 'red' }}>*</span></TextLabel>
             <StyledUploadContainer
               onClick={handleCertificadoUploadClick}
               {...getCertificadoRootProps()}
@@ -591,7 +617,7 @@ const FormComponent = ({ onFinish }) => {
                 <UploadText>
                   {isCertificadoDragActive
                     ? 'Solte o arquivo aqui'
-                    : 'Arraste ou solte o certificado ou clique para fazer o upload (PDF ou imagens)'}
+                    : 'Arraste ou solte o currículo ou clique para fazer o upload (PDF ou imagens)'}
                 </UploadText>
               )}
               <StyledInputWrapper>
@@ -606,10 +632,13 @@ const FormComponent = ({ onFinish }) => {
                 )}
               </StyledInputWrapper>
             </StyledUploadContainer>
+            {!formData.uploadedCertificado && (
+              <div style={{ color: 'red' }}>O envio do currículo é obrigatório.</div>
+            )}
           </StyledFormItem>
 
           <StyledFormItem>
-            <TextLabel>Histórico acadêmico:</TextLabel>
+            <TextLabel>Histórico acadêmico: <span style={{ color: 'red' }}>*</span></TextLabel>
             <StyledUploadContainer
               onClick={handleHistoricoUploadClick}
               {...getHistoricoRootProps()}
@@ -646,6 +675,9 @@ const FormComponent = ({ onFinish }) => {
                 )}
               </StyledInputWrapper>
             </StyledUploadContainer>
+            {!formData.uploadedHistorico && (
+              <div style={{ color: 'red' }}>O envio do histórico é obrigatório.</div>
+            )}
           </StyledFormItem>
 
           <ContainerButton>

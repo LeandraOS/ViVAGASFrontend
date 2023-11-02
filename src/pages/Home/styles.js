@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
     align-items: center;
     gap: 4.5rem;
 
+
   @media screen and (min-width: 300px) and (max-width: 820px) {
     gap: 7rem;
     

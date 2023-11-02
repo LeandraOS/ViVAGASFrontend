@@ -37,7 +37,33 @@ export const FormsVagas = ({ onFinish }) => {
     'DevOps',
     'Análise de Dados',
     'Machine Learning',
+    'Gestão de Projetos',
+    'Segurança da Informação',
+    'Inteligência Artificial',
+    'Redes de Computadores',
+    'Banco de Dados',
+    'Desenvolvimento Mobile',
+    'Realidade Virtual',
+    'Ciência de Dados',
+    'Engenharia de Software',
+    'Sistemas Embarcados',
+    'Computação Gráfica',
+    'Arquitetura de Software',
+    'Sistemas Distribuídos',
+    'Cloud Computing',
+    'Internet das Coisas (IoT)',
+    'Web Design',
+    'Design de Experiência do Usuário (UX)',
+    'Bioinformática',
+    'Computação Quântica',
+    'Ética em Computação',
+    'Robótica',
+    'Aprendizado Profundo (Deep Learning)',
+    'Computação em Nuvem',
+    'Visão Computacional',
+    // Adicione outras áreas de interesse aqui
   ];
+  
 
   const cargaHorariaOptions = [
     '12h',
@@ -53,37 +79,73 @@ export const FormsVagas = ({ onFinish }) => {
   ]
 
   const tecnologias = [
-    'JavaScript',
+    'React',
+    'Angular',
+    'Vue',
+    'Node.js',
     'Python',
     'Java',
     'C#',
     'Ruby',
-    'Swift',
-    'Kotlin',
     'PHP',
+    'Swift',
+    'JavaScript',
+    'TypeScript',
     'HTML/CSS',
+    'C++',
+    'Go',
+    'Rust',
+    'Kotlin',
+    'Perl',
+    'Scala',
+    'Haskell',
+    'Lua',
+    'Dart',
+    'Objective-C',
     'SQL',
-    'React',
-    'Node.js',
-    'Angular',
-    'Vue.js',
+    'NoSQL',
+    'MongoDB',
+    'Firebase',
     'Django',
     'Ruby on Rails',
-    'ASP.NET',
-    'Spring Boot',
     'Express.js',
-    'MongoDB',
-    'MySQL',
-    'PostgreSQL',
-    'AWS',
-    'Azure',
+    'Flask',
+    'Spring Boot',
+    'ASP.NET',
+    'Laravel',
+    'Symfony',
+    'Ionic',
+    'React Native',
+    'Xamarin',
+    'Flutter',
+    'TensorFlow',
+    'PyTorch',
+    'Keras',
+    'OpenCV',
+    'Unity',
+    'Unreal Engine',
     'Docker',
     'Kubernetes',
-    'Machine Learning',
-    'Deep Learning',
-    'DevOps',
-    'Blockchain'
-  ]
+    'AWS',
+    'Azure',
+    'Google Cloud',
+    'Heroku',
+    'Git',
+    'Jenkins',
+    'Travis CI',
+    'Jira',
+    'Confluence',
+    'Slack',
+    'Trello',
+    'Postman',
+    'Swagger',
+    'Elasticsearch',
+    'Redis',
+    'GraphQL',
+    'R', // Adicione 'R' à lista
+    // Adicione outras tecnologias aqui
+  ];
+  
 
   const nivel = [
     'Iniciante',
@@ -91,18 +153,10 @@ export const FormsVagas = ({ onFinish }) => {
     'Avançado'
   ]
 
-  const laboratorios = [
-    'SPLAB',
-    'LSD',
-    'LIAD',
-    'VIRTUS',
-    'LMD',
-    'LACINA',
-    'LABARC'
-  ]
+  const laboratorios =  ['SPLAB', 'LSD', 'LACINA', 'LMD', 'VIRTUS', 'LIAD', 'LSI', 'Embedded', 'iQuanta', 'LAD', 'LQD', 'SINBAD', 'LABARC']
 
   const softSkillsOptions = ['Habilidade de Comunicação', 'Trabalho em Equipe', 'Resolução de Problemas', 'Liderança'];
-  const requisitosFormais = ['Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG', 'CRA igual ou superior a 6,0 (seis)'];
+  const requisitosFormais = ['Ser estudante de graduação ou pós-graduação em Ciência da Computação da UFCG', 'CRA igual ou superior a 6,0 (seis)', 'Cursado a disciplina EDA'];
 
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);

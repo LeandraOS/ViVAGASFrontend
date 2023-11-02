@@ -11,7 +11,6 @@ export const AppBar = () => {
   
   // Verifique se o cadastro já foi realizado no localStorage
   const cadastroRealizadoAluno = localStorage.getItem('cadastroRealizadoAluno') === 'true';
-  const cadastroRealizadoVaga= localStorage.getItem('cadastroRealizadoVaga') === 'true';
 
 
   // Defina as páginas com base no tipo de usuário
@@ -19,25 +18,22 @@ export const AppBar = () => {
 
   if (userType === 'professor') {
     pages = [
+      { title: 'Cadastro Vagas', url: '/cadastro-vaga' },
       { title: 'Vagas', url: '/vagas' },
-      { title: 'Seleções', url: '/selecoes' },
+      { title: 'Minhas Seleções', url: '/selecoes' },
     ];
-    
-    if (!cadastroRealizadoVaga) {
-      // Adicione o link "Cadastro Vaga" apenas se o cadastro não tiver sido realizado
-      pages.push({ title: 'Cadastro Vagas', url: '/cadastro-vaga' });
-    }
+
   } else if (userType === 'aluno') {
     if (!cadastroRealizadoAluno) {
       pages = [
         { title: 'Cadastro Aluno', url: '/cadastro-aluno' },
         { title: 'Vagas', url: '/vagas' },
-        { title: 'Candidaturas', url: '/inscricoes' },
+        { title: 'Minhas Inscrições', url: '/inscricoes' },
       ];
     } else {
       pages = [
         { title: 'Vagas', url: '/vagas' },
-        { title: 'Candidaturas', url: '/inscricoes' },
+        { title: 'Minhas Inscrições', url: '/inscricoes' },
       ];
     }
   } else {

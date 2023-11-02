@@ -7,6 +7,7 @@ import { db } from '../../services/firebaseConfig';
 import { SearchComponent } from '../../components/Input/InputSearch';
 import { SelectFilter } from '../../components/SelectFilter/SelectFilter';
 import { IsEmpty } from '../../components/IsEmpty/IsEmpty';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 export const Vagas = () => {
   const [projects, setProjects] = useState([]);
@@ -79,6 +80,7 @@ export const Vagas = () => {
         <Spin size="large" />
       </div>
     ) : <>
+      <BackButton />
       <SearchComponent onSearchTextChange={setSearchText} />
       <SelectFilter onFilterChange={setSelectedFilters} />
       {projects.length > 0 ? (
