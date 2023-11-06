@@ -1,4 +1,5 @@
-# ViVagas - Plataforma de Gestão de Processos Seletivos 📋
+# ViVAGAS UFCG: Uma Plataforma de Gestão e Centralização de Projetos PD&I 
+📋
 
 ## Introdução 🚀
 
