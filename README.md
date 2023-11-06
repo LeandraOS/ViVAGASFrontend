@@ -1,5 +1,4 @@
-# ViVAGAS UFCG: Uma Plataforma de Gestão e Centralização de Projetos PD&I 
-📋
+# ViVAGAS UFCG: Uma Plataforma de Gestão e Centralização de Projetos PD&I 📋
 
 ## Introdução 🚀
 
