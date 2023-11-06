@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# ViVagas - Plataforma de Gestão de Processos Seletivos 📋
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introdução 🚀
 
-## Available Scripts
+A Unidade Acadêmica de Sistemas e Computação (UASC) possui 11 (onze) laboratórios focados em diversas áreas da tecnologia e estes adotam processos seletivos para alocação de discentes em seus projetos. A maioria das ofertas de vagas feitas pelos docentes para esses projetos é realizada via e-mail acadêmico, onde estas podem passar despercebidas por diferentes motivos e, além disso, não estão centralizadas em uma plataforma que contenha todas as chamadas para projetos. Portanto, há uma lacuna a ser resolvida principalmente no que diz respeito à gestão destas seleções, tanto pelos professores, quanto pelos alunos.
 
-In the project directory, you can run:
+Este trabalho tem a proposta de desenvolver o ViVagas, uma plataforma que tem como objetivo principal facilitar a gestão de todo o processo seletivo mencionado anteriormente. O ViVagas oferece funcionalidades tanto para professores quanto para alunos. Professores publicam vagas, buscam e filtram alunos com base em seus perfis e conhecimentos, e realizam o processo seletivo de forma eficiente. Já os alunos têm acesso à visualização de vagas disponíveis, podem filtrá-las com base em critérios como área de atuação e candidatar-se nas vagas disponíveis.
 
-### `npm start`
+## Avaliação da Plataforma 📊
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A avaliação da plataforma foi realizada utilizando as seguintes abordagens:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Think Aloud Protocol**: Um teste de pensamento em voz alta no qual o usuário faz uso do sistema, fornecendo valiosos insights sobre a usabilidade.
 
-### `npm test`
+- **Questionário CSUQ**: Uma versão adaptada do questionário CSUQ foi aplicada para recolher métricas de usabilidade do sistema.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Lighthouse**: Uma ferramenta que realiza auditorias automatizadas em páginas da web para identificar áreas de otimização. Destacou a ótima acessibilidade, práticas de desenvolvimento e otimização.
 
-### `npm run build`
+## Resultados 📈
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Os resultados da avaliação indicaram:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Ótima acessibilidade, práticas de desenvolvimento e otimização segundo o Lighthouse.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Avaliação bastante positiva no questionário CSUQ.
 
-### `npm run eject`
+- Insights valiosos e clareza do fluxo de usabilidade a partir do Think Aloud Protocol.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Em suma, a avaliação geral apontou para bons resultados e uma excelente usabilidade do ViVAGAS.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Como Contribuir 🤝
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Você pode contribuir para o desenvolvimento do ViVagas de várias maneiras:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Reportando problemas (issues) no repositório.
 
-## Learn More
+- Sugerindo melhorias.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Enviando pull requests.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Licença 📜
 
-### Code Splitting
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
