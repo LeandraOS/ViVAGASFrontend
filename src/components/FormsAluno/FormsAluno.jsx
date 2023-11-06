@@ -157,7 +157,6 @@ const FormComponent = ({ onFinish }) => {
         };
   
         await setDoc(studentDocRef, studentData);
-        console.log('Documento do aluno criado com sucesso no Firestore');
       } catch (error) {
         console.error('Erro ao criar o documento do aluno:', error);
       }
@@ -248,6 +247,7 @@ const FormComponent = ({ onFinish }) => {
         orientacaoSexual: parsedData.orientacaoSexual || '',
         uploadedCertificado: parsedData.uploadedCertificado || null,
         uploadedHistorico: parsedData.uploadedHistorico || null,
+
       }));
     }
   }, []);
@@ -287,13 +287,13 @@ const FormComponent = ({ onFinish }) => {
           orientacaoSexual: formData.orientacaoSexual,
           uploadedCertificado: certificadoURL,
           uploadedHistorico: historicoURL,
+          photoURL: auth.currentUser.photoURL
         };
   
         const docRef = await addDoc(collection(db, 'aluno'), dataToSave);
         await updateDoc(doc(db, 'aluno', auth.currentUser.uid), {
           dadosEnviados: true,
         });
-        console.log('Documento adicionado com ID: ', docRef);
         localStorage.setItem('cadastroRealizadoAluno', 'true');
         setIsSuccess(true);
         showSuccessModal();
@@ -308,7 +308,6 @@ const FormComponent = ({ onFinish }) => {
   };
   
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   const handleInputChange = (field, value) => {
@@ -494,7 +493,7 @@ const FormComponent = ({ onFinish }) => {
             ]}
           >
             <Select onChange={(value) => handleInputChange('tipoAluno', value)}>
-              {['graduação', 'mestrado', 'doutorado'].map((tipoAluno) => (
+              {['Graduação', 'Mestrado', 'Doutorado'].map((tipoAluno) => (
                 <Option key={tipoAluno} value={tipoAluno}>
                   {tipoAluno}
                 </Option>

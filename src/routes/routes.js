@@ -40,7 +40,7 @@ export const AppRoutes = () => {
         <>
           <Route path='/cadastro-vaga' element={<CadastroVagas />} />
           <Route path='/selecoes' element={<Selections />} />
-          <Route path='/inscritos' element={<Subscribers />} />
+          <Route path='/inscritos/:idVaga' element={<Subscribers />} />
         </>
       )}
 

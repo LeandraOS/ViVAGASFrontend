@@ -6,7 +6,6 @@ import { BackButton } from '../../components/BackButton/BackButton'
 import { TitlePages } from '../../components/TitlePages/TitlePages'
 
 const onFinish = (values) => {
-  console.log('Valores enviados:', values);
 };
 
 export const CadastroVagas = () => {

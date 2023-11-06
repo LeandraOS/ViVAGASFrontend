@@ -14,7 +14,6 @@ const db = getFirestore();
 const saveFormData = async (formData) => {
   try {
     const docRef = await addDoc(collection(db, 'vaga'), formData);
-    console.log('Documento salvo com ID: ', docRef.id);
     return docRef.id;
   } catch (e) {
     console.error('Erro ao adicionar documento: ', e);
@@ -226,7 +225,6 @@ export const FormsVagas = ({ onFinish }) => {
       if (user) {
         const userId = user.uid;
         const formDataWithUser = { ...formData, userId }; 
-        console.log('Dados do formulário enviados:', formDataWithUser);
         const docId = await saveFormData(formDataWithUser);
         localStorage.setItem('cadastroRealizadoVaga', 'true');
         setIsSuccess(true);
@@ -241,7 +239,6 @@ export const FormsVagas = ({ onFinish }) => {
   };
   
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   const handleInputChange = (field, value) => {

@@ -18,7 +18,7 @@ export const Registrations = () => {
   useEffect(() => {
     if (user) {
       const fetchRegistrations = async () => {
-        setIsLoading(true); // Define isLoading para true durante a busca
+        setIsLoading(true);
 
         const inscricoesRef = collection(db, 'inscricao');
         const querySnapshot = await getDocs(query(inscricoesRef, where('idAluno', '==', user.uid)));
@@ -30,19 +30,17 @@ export const Registrations = () => {
           // Recupere os detalhes da vaga usando o idVaga
           const vagaDoc = await getDoc(doc(db, 'vaga', data.idVaga));
           const vagaData = vagaDoc.data();
-          console.log(vagaData);
 
           if (vagaData) {
             registrationData.push({
               id: docSnapshot.id,
-              tituloProjeto: vagaData.tituloProjeto, // Supondo que o título do projeto está em vagaData
-              // Outros dados da inscrição ou vaga que você deseja incluir
+              tituloProjeto: vagaData.tituloProjeto, 
             });
           }
         }
 
         setRegistrations(registrationData);
-        setIsLoading(false); // Define isLoading para false após a busca
+        setIsLoading(false);
       };
 
       fetchRegistrations();

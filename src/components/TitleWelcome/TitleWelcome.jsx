@@ -21,7 +21,7 @@ export const TitleWelcome = () => {
 
   return (
     <Title>
-      Bem-vindo(a), {userName}
+      {userName ? `Bem-vindo(a), ${userName}!` : 'Bem-vindo(a)!'}
     </Title>
   );
 };

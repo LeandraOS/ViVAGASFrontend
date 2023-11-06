@@ -22,7 +22,6 @@ export const Home = () => {
       };
 
       await setDoc(professorRef, professorData);
-      console.log('Dados do professor salvos com sucesso.');
     } catch (error) {
       console.error('Erro ao salvar dados do professor:', error);
     }

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
 import { Button, TableCell, TableContainer, TextField } from '@mui/material';
-import { Input } from 'antd';
+import { Input, Select } from 'antd';
 const { Search } = Input; // Importe o componente de pesquisa do Ant Design
+
 
 
 export const StyledDropUp = styled(ArrowDropUpOutlinedIcon)`
@@ -76,6 +77,7 @@ export const StyledTableContainer = styled(TableContainer)`
 export const StyledTableCell = styled(TableCell)`
   text-align: center; /* Centraliza o texto horizontalmente */
 
+
   && {
     color: #2878BE; 
     text-align: center; /* Centraliza o texto horizontalmente */
@@ -106,6 +108,7 @@ export const ContainerButton = styled.div`
   gap: 2rem;
   justify-content: center;
   margin-top: 4rem;
+  margin-bottom: 4rem;
 `
 
 export const ButtonAproved = styled(Button)`
@@ -123,4 +126,23 @@ export const StyledButtonCell = styled(StyledTableCell)`
   display: flex;
   align-items: center; /* Centraliza o conteúdo verticalmente */
   justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  padding-bottom: 24px;
 `;
+
+export const LinkStyled = styled.a`
+  color: #2878BE; 
+  font-size: 28px;
+
+  &:hover{
+    color: #119DB6; 
+    transition: transform 0.2s ease;
+    transform: scale(1.1);
+  }
+`
+
+export const SelectBlue = styled(Select)`
+ span {
+   color: #2878BE !important;
+ }
+
+`

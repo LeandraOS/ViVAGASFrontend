@@ -12,9 +12,9 @@ export const AppBar = () => {
   // Verifique se o cadastro já foi realizado no localStorage
   const cadastroRealizadoAluno = localStorage.getItem('cadastroRealizadoAluno') === 'true';
 
-
   // Defina as páginas com base no tipo de usuário
   let pages;
+  let profileMenuType; // Definindo o tipo do ProfileMenu
 
   if (userType === 'professor') {
     pages = [
@@ -22,6 +22,7 @@ export const AppBar = () => {
       { title: 'Vagas', url: '/vagas' },
       { title: 'Minhas Seleções', url: '/selecoes' },
     ];
+    profileMenuType = 'Seleções'; // Define o tipo do ProfileMenu para "Seleções"
 
   } else if (userType === 'aluno') {
     if (!cadastroRealizadoAluno) {
@@ -36,8 +37,10 @@ export const AppBar = () => {
         { title: 'Minhas Inscrições', url: '/inscricoes' },
       ];
     }
+    profileMenuType = 'Inscrições'; // Define o tipo do ProfileMenu para "Inscrições"
   } else {
     pages = [];
+    profileMenuType = ''; // Define o tipo do ProfileMenu para uma string vazia
   }
 
   return (
@@ -51,7 +54,7 @@ export const AppBar = () => {
         ))}
         {signed ? (
           // Renderize o ProfileMenu quando o usuário estiver logado
-          <ProfileMenu name={user.displayName} registros="Candidaturas" picture={user.photoURL} />
+          <ProfileMenu name={user.displayName} registros={profileMenuType} picture={user.photoURL} type={profileMenuType} />
         ) : (
           // Renderize o botão de login quando o usuário não estiver logado
           <ButtonLogin actived={true} text="Entrar" marginLeft="11.5rem" />

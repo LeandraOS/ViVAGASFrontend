@@ -17,7 +17,7 @@ export const Selections = () => {
     if (signed && user) {
       const vagasCollection = collection(db, 'vaga');
       const q = query(vagasCollection, where('userId', '==', user.uid));
-
+      
       getDocs(q)
         .then((querySnapshot) => {
           const userVagasData = [];
@@ -40,7 +40,7 @@ export const Selections = () => {
       {userVagas.length > 0 ? (
         <Wrapper>
           {userVagas.map((vaga) => (
-            <CardSelect key={vaga.id} title={vaga.tituloProjeto} initialValue='Ativa' />
+            <CardSelect key={vaga.id} title={vaga.tituloProjeto} initialValue='Ativa' idVaga={vaga.id} />
           ))}
         </Wrapper>
       ) : (

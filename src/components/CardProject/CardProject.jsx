@@ -10,10 +10,13 @@ import { GoodLuck } from '../../modals/TextImg/GoodLuck';
 import { db } from '../../services/firebaseConfig';
 
 export const CardProject = ({ data }) => {
-  const { signed, user } = useContext(AuthGoogleContext);
+  const { signed, user, userType } = useContext(AuthGoogleContext);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
+  const isProfessor = userType == 'professor'
+  const isAluno = userType == 'aluno'
+
 
   const formatarData = (data) => {
     const dataFormatada = new Date(data);
@@ -41,12 +44,9 @@ export const CardProject = ({ data }) => {
   }, [signed, user, data.id]);
 
   const handleApply = async () => {
-    console.log(isAlreadyApplied);
     if (signed) {
-      console.log('Função handleApply chamada.');
 
       if (isAlreadyApplied) {
-        console.log('Erro: o usuário já se inscreveu nesta vaga.');
         alert('Você já se inscreveu nesta vaga.');
         return;
       }
@@ -63,26 +63,22 @@ export const CardProject = ({ data }) => {
 
         try {
           await addDoc(inscricoesRef, inscriptionData);
-          console.log('Inscrição salva com sucesso.');
           setShowSuccessPopup(true);
           setIsAlreadyApplied(true);
         } catch (error) {
-          console.log('Erro ao salvar a inscrição:', error);
           setShowErrorAlert(true);
         }
       } else {
-        console.log('Erro: usuário não enviou dados de cadastro.');
         setShowErrorAlert(true);
       }
     } else {
-      console.log('Erro: usuário não autenticado.');
-      alert('Você precisa fazer login para se inscrever em uma vaga.');
+      alert('Você precisa fazer login para se inscrever e depois candidatar-se em uma vaga.');
     }
   };
 
   const renderTags = (items) => {
     return items
-      .filter((item) => item.trim() !== '') // Filtra elementos vazios
+      .filter((item) => item.trim() !== '') 
       .map((item, index) => (
         <Tag key={index} text={item} />
       ));
@@ -119,7 +115,7 @@ export const CardProject = ({ data }) => {
           <Link to="/detalhes">
             <LinkDetails active={true}>Detalhes</LinkDetails>
           </Link>
-          <ButtonCustom onClick={handleApply} actived={true} text='Candidatar-se' />
+          <ButtonCustom  onClick={!isProfessor ? handleApply : undefined} actived={ isProfessor ? !isProfessor : !isAlreadyApplied} text='Candidatar-se' />
         </WrapperButtons>
       </Card>
       {showSuccessPopup && (
@@ -127,8 +123,8 @@ export const CardProject = ({ data }) => {
           <GoodLuck text="Inscrição enviada com sucesso!" onClose={() => setShowSuccessPopup(false)} />
         </FullScreenModal>
       )}
-      {showErrorAlert && (
-        alert('Ocorreu um erro ao enviar a inscrição. Por favor, tente novamente mais tarde.')
+      {isAluno && showErrorAlert && (
+        alert('Verifique se você já se cadastrou, caso não, faça seu cadastro antes de candidatar-se.')
       )}
     </>
   );

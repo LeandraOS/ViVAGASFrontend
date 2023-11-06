@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
-  TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   Paper,
@@ -11,59 +9,83 @@ import {
 } from '@mui/material';
 
 import PeriodSelect from '../SelectFilter/PeriodSelect';
-import { StyledDropUp, StyledDropDown, Container, StyledSearch, StyledCRAInput, StyledTableContainer, StyledButtonCell, ColumnTitle, StyledTableCell, ContainerButton, ButtonAproved } from './styles';
-import { Input } from 'antd';
+import { StyledDropUp, StyledDropDown, Container, StyledSearch, StyledCRAInput, StyledTableContainer, StyledButtonCell, ColumnTitle, StyledTableCell, ContainerButton, ButtonAproved, LinkStyled, SelectBlue } from './styles';
 import { createGlobalStyle } from 'styled-components';
+import { db } from '../../services/firebaseConfig';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { FileDoneOutlined, FilePdfOutlined, GithubOutlined } from '@ant-design/icons';
+import { Select } from 'antd';
+const { Option } = Select;
 
-const studentsData = [
-  {
-    id: 1,
-    data: '02/10/2023',
-    foto: 'URL_DA_FOTO',
-    nome: 'João',
-    email: 'joao@email.com',
-    historico: 'Histórico do aluno',
-    curriculo: 'Curriculum Vitae',
-    CRA: 8.5,
-    periodo: 3,
-    aprovado: null,
-  },
-  {
-    id: 2,
-    data: '01/10/2023',
-    foto: 'URL_DA_FOTO',
-    nome: 'Maria',
-    email: 'maria@email.com',
-    historico: 'Histórico do aluno',
-    curriculo: 'Curriculum Vitae',
-    CRA: 9.5,
-    periodo: 8,
-    aprovado: null,
-  },
-  // Adicione mais alunos, se necessário
+
+
+const status = [
+  'Análise de currículo',
+  'Entrevista',
+  'Aprovado',
+  'Lista de espera',
+  'Não aprovado'
 ];
 
-function StudentTable() {
+export const StudentTable = ({ idVaga }) => {
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [orderBy, setOrderBy] = useState('data');
   const [order, setOrder] = useState('asc');
   const [searchText, setSearchText] = useState('');
   const [filterCRA, setFilterCRA] = useState('');
   const [filterPeriod, setFilterPeriod] = useState([]);
+  const [inscritos, setInscritos] = useState([]); // Para armazenar os alunos inscritos
+  const [dadosAlunos, setDadosAlunos] = useState([]); 
+
+  const fetchInscritos = async () => {
+    try {
+      const inscricoesRef = collection(db, 'inscricao');
+      const q = query(inscricoesRef, where('idVaga', '==', idVaga));
+      const querySnapshot = await getDocs(q);
+
+      const alunosInscritos = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        alunosInscritos.push(data.idAluno);
+      });
+
+      setInscritos(alunosInscritos);
+
+      fetchDadosAlunos(alunosInscritos);
+    } catch (error) {
+      console.error('Erro ao buscar inscritos:', error);
+    }
+  };
+
+  const fetchDadosAlunos = async (alunosInscritos) => {
+    try {
+      const alunosRef = collection(db, 'aluno');
+      const q = query(alunosRef, where('userId', 'in', alunosInscritos));
+      const alunosSnapshot = await getDocs(q);
+
+      const dadosAlunos = [];
+
+      alunosSnapshot.forEach((doc) => {
+        const data = doc.data();
+        dadosAlunos.push(data);
+      });
+
+      setDadosAlunos(dadosAlunos);
+    } catch (error) {
+      console.error('Erro ao buscar dados dos alunos:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchInscritos();
+  }, [idVaga]);
+
 
   const handleSort = (columnId) => {
     const isAsc = orderBy === columnId && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(columnId);
   };
-
-  const sortedData = [...studentsData].sort((a, b) => {
-    if (order === 'asc') {
-      return a[orderBy] < b[orderBy] ? -1 : 1;
-    } else {
-      return b[orderBy] < a[orderBy] ? -1 : 1;
-    }
-  });
 
   const handleFilterCRA = (event) => {
     setFilterCRA(event.target.value);
@@ -79,44 +101,22 @@ function StudentTable() {
 
   const handleApprove = () => {
     if (selectedStudents.length > 0) {
-      // Envie e-mails de aprovação para cada aluno selecionado
       const names = selectedStudents.map((student) => student.nome).join(', ');
       alert(`Alunos ${names} aprovados!`);
-      // Limpe a seleção após a aprovação
       setSelectedStudents([]);
     }
   };
 
   const handleReject = () => {
     if (selectedStudents.length > 0) {
-      // Envie e-mails de reprovação para cada aluno selecionado
       const names = selectedStudents.map((student) => student.nome).join(', ');
       alert(`Alunos ${names} não aprovados!`);
-      // Limpe a seleção após a reprovação
       setSelectedStudents([]);
     }
   };
 
-  const filteredData = sortedData.filter((student) => {
-    const craMatch = !filterCRA || student.CRA.toString().startsWith(filterCRA);
-    const periodMatch =
-      filterPeriod.length === 0 || filterPeriod.includes(student.periodo.toString());
-    const searchMatch =
-      student.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchText.toLowerCase()) ||
-      student.historico.toLowerCase().includes(searchText.toLowerCase()) ||
-      student.curriculo.toLowerCase().includes(searchText.toLowerCase());
-
-    return craMatch && periodMatch && searchMatch;
-  });
-
-  const GlobalStyle = createGlobalStyle`
-
-`;
-
   return (
     <div>
-      <GlobalStyle /> {/* Aplica o estilo global de cor do texto */}
       <Container>
         <StyledSearch
           style={{
@@ -149,29 +149,13 @@ function StudentTable() {
         <Table>
           <TableHead>
             <TableRow>
-              <StyledTableCell
-                onClick={() => handleSort('data')}
-                className={`sortable ${orderBy === 'data' ? (order === 'asc' ? 'sorted-asc' : 'sorted-desc') : ''}`}
-              >
-                <ColumnTitle>
-                Data
-                  {orderBy === 'data' ? (
-                    order === 'asc' ? (
-                      <StyledDropDown />
-                    ) : (
-                      <StyledDropUp />
-                    )
-                  ) : (
-                    <StyledDropUp />
-                  )}
-                </ColumnTitle>
-              </StyledTableCell>
-
               <StyledTableCell>Foto</StyledTableCell>
               <StyledTableCell>Nome</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
               <StyledTableCell>Histórico</StyledTableCell>
-              <StyledTableCell>Curriculum</StyledTableCell>
+              <StyledTableCell>Currículo</StyledTableCell>
+              <StyledTableCell>Github</StyledTableCell>
+              <StyledTableCell>Cor</StyledTableCell>
+              <StyledTableCell>Gênero</StyledTableCell>
               <StyledTableCell
                 onClick={() => handleSort('CRA')}
                 className={`sortable ${orderBy === 'CRA' ? (order === 'asc' ? 'sorted-asc' : 'sorted-desc') : ''}`}
@@ -195,7 +179,7 @@ function StudentTable() {
                 className={`sortable ${orderBy === 'periodo' ? (order === 'asc' ? 'sorted-asc' : 'sorted-desc') : ''}`}
               >
                 <ColumnTitle>
-                  Período
+                  Período Ingresso
                   {orderBy === 'periodo' ? (
                     order === 'asc' ? (
                       <StyledDropDown />
@@ -206,38 +190,40 @@ function StudentTable() {
                     <StyledDropUp />
                   )}
                 </ColumnTitle>
-              </StyledTableCell>
 
+              </StyledTableCell>
               <StyledTableCell>Ações</StyledTableCell>
+
+
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData.map((student) => (
-              <TableRow key={student.id}>
-                <StyledTableCell>{student.data}</StyledTableCell>
-                <StyledTableCell>{student.foto}</StyledTableCell>
-                <StyledTableCell>{student.nome}</StyledTableCell>
-                <StyledTableCell>{student.email}</StyledTableCell>
-                <StyledTableCell>{student.historico}</StyledTableCell>
-                <StyledTableCell>{student.curriculo}</StyledTableCell>
-                <StyledTableCell>{student.CRA}</StyledTableCell>
-                <StyledTableCell>{student.periodo}</StyledTableCell>
+            {dadosAlunos.map((aluno) => (
+              <TableRow key={aluno.id}>
+                <StyledTableCell><img style={{borderRadius: '100%'}} src={aluno.photoURL} /></StyledTableCell>
+                <StyledTableCell style={{width: '120px'}}>{aluno.name}</StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.uploadedHistorico} target="_blank"><FileDoneOutlined /></LinkStyled></StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.uploadedCertificado} target="_blank"><FilePdfOutlined/></LinkStyled></StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.github} target="_blank"><GithubOutlined/></LinkStyled></StyledTableCell>
+                <StyledTableCell style={{width: '80px'}}>{aluno.corRaca}</StyledTableCell>
+                <StyledTableCell style={{width: '80px'}}>{aluno.genero}</StyledTableCell>
+                <StyledTableCell>{aluno.cra}</StyledTableCell>
+                <StyledTableCell>{aluno.periodo}</StyledTableCell>
                 <StyledButtonCell>
-                  <Button
-                    variant="outlined"
-                    color={
-                      selectedStudents.includes(student) ? 'secondary' : 'primary'
-                    }
-                    onClick={() => toggleStudentSelection(student)}
-                  >
-                    {selectedStudents.includes(student) ? 'Desmarcar' : 'marcar'}
-                  </Button>
+                  <SelectBlue style={{ width: 180}}>
+                    {status.map((option, index) => (
+                      <Option style={{ color: '#2878BE' }}key={index} value={option}>
+                        {option}
+                      </Option>
+                    ))}
+                  </SelectBlue>
                 </StyledButtonCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </StyledTableContainer>
+
       <ContainerButton>
         <ButtonAproved
           variant="contained"
@@ -256,8 +242,5 @@ function StudentTable() {
         </Button>
       </ContainerButton>
     </div>
-
   );
-}
-
-export default StudentTable;
+};

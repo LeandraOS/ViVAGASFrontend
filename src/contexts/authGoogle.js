@@ -62,10 +62,8 @@ export const AuthGoogleProvider = ({ children }) => {
   }
 
   const performLogout = () => {
-    console.log('Iniciando logout...');
     firebaseSignOut(auth)
       .then(() => {
-        console.log('Usuário desconectado com sucesso');
         sessionStorage.clear();
         setUser(null);
         setUserType(null);

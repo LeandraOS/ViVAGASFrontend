@@ -49,7 +49,6 @@ export function ProfileMenu(props) {
     }
   };
 
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open)
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -100,7 +99,7 @@ export function ProfileMenu(props) {
                 >
                   <Name>{name}</Name>
                   <Link to="/inscricoes" style={{textDecoration: 'none', color: '#000000DE'}}> {/* Use o Link para a rota "/inscricoes" */}
-                    <ContainerMenu onClick={handleClose}><FileOutlined />Minhas Inscrições</ContainerMenu>
+                    <ContainerMenu onClick={handleClose}><FileOutlined />Minhas {props.type}</ContainerMenu>
                   </Link>
                   <ContainerMenu onClick={handleButtonClick}><LogoutOutlined />Sair</ContainerMenu>
                 </MenuList>
