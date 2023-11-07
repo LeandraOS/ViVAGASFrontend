@@ -13,11 +13,9 @@ import { StyledDropUp, StyledDropDown, Container, StyledSearch, StyledCRAInput, 
 import { createGlobalStyle } from 'styled-components';
 import { db } from '../../services/firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { FileDoneOutlined, FilePdfOutlined, GithubOutlined } from '@ant-design/icons';
+import { FileDoneOutlined, FilePdfOutlined, GithubOutlined, LinkedinOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 const { Option } = Select;
-
-
 
 const status = [
   'Análise de currículo',
@@ -34,8 +32,46 @@ export const StudentTable = ({ idVaga }) => {
   const [searchText, setSearchText] = useState('');
   const [filterCRA, setFilterCRA] = useState('');
   const [filterPeriod, setFilterPeriod] = useState([]);
-  const [inscritos, setInscritos] = useState([]); // Para armazenar os alunos inscritos
-  const [dadosAlunos, setDadosAlunos] = useState([]); 
+  const [inscritos, setInscritos] = useState([]);
+  const [dadosAlunos, setDadosAlunos] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState(status[0]);
+
+  const handleStatusChange = (value, aluno) => {
+    aluno.selectedStatus = value;
+    setDadosAlunos([...dadosAlunos]);
+  };
+
+  const filterStudents = (students) => {
+    return students.filter((aluno) => {
+      const lowerSearchText = searchText.toLowerCase();
+      if (
+        lowerSearchText.length > 0 &&
+        !Object.values(aluno)
+          .some((value) => String(value).toLowerCase().includes(lowerSearchText))
+      ) {
+        return false;
+      }
+      if (filterCRA !== '') {
+        const formattedFilterCRA = filterCRA.replace(',', '.'); // Substitui ',' por '.'
+        const formattedAlunoCRA = String(aluno.cra).replace(',', '.'); // Substitui ',' por '.'
+        if (parseFloat(formattedFilterCRA) !== parseFloat(formattedAlunoCRA)) {
+          return false;
+        }
+      }
+      if (filterPeriod.length > 0 && !filterPeriod.includes(aluno.periodo.toString())) {
+        return false;
+      }
+      if (selectedStatus !== '' && selectedStatus !== aluno.selectedStatus) {
+        return false;
+      }
+      return true;
+    });
+  };
+
+  const handleFilterChange = () => {
+    const filteredStudents = filterStudents(dadosAlunos);
+    setFilteredStudents(filteredStudents);
+  };
 
   const fetchInscritos = async () => {
     try {
@@ -67,6 +103,7 @@ export const StudentTable = ({ idVaga }) => {
 
       alunosSnapshot.forEach((doc) => {
         const data = doc.data();
+        data.selectedStatus = status[0];
         dadosAlunos.push(data);
       });
 
@@ -80,7 +117,6 @@ export const StudentTable = ({ idVaga }) => {
     fetchInscritos();
   }, [idVaga]);
 
-
   const handleSort = (columnId) => {
     const isAsc = orderBy === columnId && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -91,28 +127,8 @@ export const StudentTable = ({ idVaga }) => {
     setFilterCRA(event.target.value);
   };
 
-  const toggleStudentSelection = (student) => {
-    if (selectedStudents.includes(student)) {
-      setSelectedStudents(selectedStudents.filter((s) => s !== student));
-    } else {
-      setSelectedStudents([...selectedStudents, student]);
-    }
-  };
-
-  const handleApprove = () => {
-    if (selectedStudents.length > 0) {
-      const names = selectedStudents.map((student) => student.nome).join(', ');
-      alert(`Alunos ${names} aprovados!`);
-      setSelectedStudents([]);
-    }
-  };
-
-  const handleReject = () => {
-    if (selectedStudents.length > 0) {
-      const names = selectedStudents.map((student) => student.nome).join(', ');
-      alert(`Alunos ${names} não aprovados!`);
-      setSelectedStudents([]);
-    }
+  const handleFilterPeriod = (selectedPeriods) => {
+    setFilterPeriod(selectedPeriods);
   };
 
   return (
@@ -124,8 +140,12 @@ export const StudentTable = ({ idVaga }) => {
           }}
           placeholder="Pesquisar"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+            handleFilterChange();
+          }}
         />
+
         <StyledCRAInput
           style={{
             width: '12%',
@@ -136,12 +156,12 @@ export const StudentTable = ({ idVaga }) => {
           placeholder="Filtrar por CRA"
           value={filterCRA}
           onChange={handleFilterCRA}
-          type='number'
+          type="number"
         />
 
         <PeriodSelect
           value={filterPeriod}
-          onChange={setFilterPeriod}
+          onChange={handleFilterPeriod}
         />
       </Container>
 
@@ -154,14 +174,18 @@ export const StudentTable = ({ idVaga }) => {
               <StyledTableCell>Histórico</StyledTableCell>
               <StyledTableCell>Currículo</StyledTableCell>
               <StyledTableCell>Github</StyledTableCell>
+              <StyledTableCell>LinkedIn</StyledTableCell>
               <StyledTableCell>Cor</StyledTableCell>
               <StyledTableCell>Gênero</StyledTableCell>
+              <StyledTableCell>Nível</StyledTableCell>
+              <StyledTableCell>Áreas de interesse</StyledTableCell>
+
               <StyledTableCell
                 onClick={() => handleSort('CRA')}
                 className={`sortable ${orderBy === 'CRA' ? (order === 'asc' ? 'sorted-asc' : 'sorted-desc') : ''}`}
               >
                 <ColumnTitle>
-              CRA
+                  CRA
                   {orderBy === 'CRA' ? (
                     order === 'asc' ? (
                       <StyledDropDown />
@@ -190,29 +214,40 @@ export const StudentTable = ({ idVaga }) => {
                     <StyledDropUp />
                   )}
                 </ColumnTitle>
-
               </StyledTableCell>
               <StyledTableCell>Ações</StyledTableCell>
-
-
             </TableRow>
           </TableHead>
           <TableBody>
-            {dadosAlunos.map((aluno) => (
+            {filterStudents(dadosAlunos).map((aluno) => (
               <TableRow key={aluno.id}>
-                <StyledTableCell><img style={{borderRadius: '100%'}} src={aluno.photoURL} /></StyledTableCell>
-                <StyledTableCell style={{width: '120px'}}>{aluno.name}</StyledTableCell>
+                <StyledTableCell style={{ width: '20px' }}><img style={{ borderRadius: '100%', width: '70px' }} src={aluno.photoURL} /></StyledTableCell>
+                <StyledTableCell style={{ width: '120px' }}>{aluno.name}</StyledTableCell>
                 <StyledTableCell><LinkStyled href={aluno.uploadedHistorico} target="_blank"><FileDoneOutlined /></LinkStyled></StyledTableCell>
-                <StyledTableCell><LinkStyled href={aluno.uploadedCertificado} target="_blank"><FilePdfOutlined/></LinkStyled></StyledTableCell>
-                <StyledTableCell><LinkStyled href={aluno.github} target="_blank"><GithubOutlined/></LinkStyled></StyledTableCell>
-                <StyledTableCell style={{width: '80px'}}>{aluno.corRaca}</StyledTableCell>
-                <StyledTableCell style={{width: '80px'}}>{aluno.genero}</StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.uploadedCertificado} target="_blank"><FilePdfOutlined /></LinkStyled></StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.github} target="_blank"><GithubOutlined /></LinkStyled></StyledTableCell>
+                <StyledTableCell><LinkStyled href={aluno.linkedin} target="_blank"><LinkedinOutlined /></LinkStyled></StyledTableCell>
+                <StyledTableCell style={{ width: '60px' }}>{aluno.corRaca}</StyledTableCell>
+                <StyledTableCell style={{ width: '60px' }}>{aluno.genero}</StyledTableCell>
+                <StyledTableCell style={{ width: '60px' }}>{aluno.tipoAluno}</StyledTableCell>
+                <StyledTableCell >
+                  {aluno.areasInteresse.map((area, index) => (
+                    <span key={index}>
+                      {area}
+                      {index < aluno.areasInteresse.length - 1 && ', '}
+                    </span>
+                  ))}
+                </StyledTableCell>
                 <StyledTableCell>{aluno.cra}</StyledTableCell>
                 <StyledTableCell>{aluno.periodo}</StyledTableCell>
                 <StyledButtonCell>
-                  <SelectBlue style={{ width: 180}}>
+                  <SelectBlue
+                    style={{ width: 150 }}
+                    value={aluno.selectedStatus}
+                    onChange={(value) => handleStatusChange(value, aluno)}
+                  >
                     {status.map((option, index) => (
-                      <Option style={{ color: '#2878BE' }}key={index} value={option}>
+                      <Option style={{ color: '#2878BE' }} key={index} value={option}>
                         {option}
                       </Option>
                     ))}
@@ -223,24 +258,7 @@ export const StudentTable = ({ idVaga }) => {
           </TableBody>
         </Table>
       </StyledTableContainer>
-
-      <ContainerButton>
-        <ButtonAproved
-          variant="contained"
-          onClick={handleApprove}
-          disabled={selectedStudents.length === 0}
-        >
-          Aprovar
-        </ButtonAproved>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleReject}
-          disabled={selectedStudents.length === 0}
-        >
-          Não Aprovar
-        </Button>
-      </ContainerButton>
     </div>
-  );
+  )
 };
+

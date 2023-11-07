@@ -3,12 +3,18 @@ import { Select, Tag } from 'antd';
 import { Label, Wrapper, SelectColor } from './styles';
 
 const options = [];
-for (let i = 1; i <= 9; i++) { // Altere o loop para criar opções de 1 a 9
-  options.push({
-    label: i.toString(),
-    value: i.toString(),
-  });
+for (let year = 2016; year <= 2023; year++) {
+  for (let term = 1; term <= 2; term++) {
+    const label = `${year}.${term === 1 ? '1' : '2'}`;
+    options.push({
+      label,
+      value: label,
+    });
+  }
 }
+
+console.log(options);
+
 
 const tagRender = (props) => {
   const { label, value, closable, onClose } = props;
